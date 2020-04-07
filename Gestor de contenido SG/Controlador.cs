@@ -16,14 +16,23 @@ namespace Gestor_de_contenido_SG
         [STAThread]
         static void Main()
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Bloque("1","1"));
+            try
+            {
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+                //Application.Run(new Bloque("1", "1"));
+                Application.Run(new Menu());
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+
         }
 
         public static OleDbConnection Conectar()
         {
-            string connectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\\Users\\F540U\\Desktop\\Gestor de contenido SG\\Gestor de contenido SG\\Base de datos\\BD_ManualSG.accdb";
+            string connectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\\Users\\F540U\\Documents\\code\\Gestor_de_contenido_SG\\Gestor de contenido SG\\Base de datos\\BD_ManualSG.accdb";
 
             BDConexion = new OleDbConnection(connectionString);
 

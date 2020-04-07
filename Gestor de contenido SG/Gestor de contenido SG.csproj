@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Clases\ClaseElemento.cs" />
     <Compile Include="FuncionesBD\BDBloques.cs" />
     <Compile Include="FuncionesBD\BDCircuitos.cs" />
     <Compile Include="FuncionesBD\BDColumnas.cs" />

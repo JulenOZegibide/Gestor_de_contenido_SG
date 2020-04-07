@@ -13,3 +13,18 @@ C:\Users\F540U\Desktop\Gestor de contenido SG\Gestor de contenido SG\obj\Debug\G
 C:\Users\F540U\Desktop\Gestor de contenido SG\Gestor de contenido SG\obj\Debug\Gestor_de_contenido_SG.Circuito.resources
 C:\Users\F540U\Desktop\Gestor de contenido SG\Gestor de contenido SG\obj\Debug\Gestor_de_contenido_SG.CrearPagina.resources
 C:\Users\F540U\Desktop\Gestor de contenido SG\Gestor de contenido SG\obj\Debug\Gestor_de_contenido_SG.Columna.resources
+C:\Users\F540U\Documents\code\Gestor_de_contenido_SG\Gestor de contenido SG\bin\Debug\Gestor de contenido SG.exe.config
+C:\Users\F540U\Documents\code\Gestor_de_contenido_SG\Gestor de contenido SG\bin\Debug\Gestor de contenido SG.exe
+C:\Users\F540U\Documents\code\Gestor_de_contenido_SG\Gestor de contenido SG\bin\Debug\Gestor de contenido SG.pdb
+C:\Users\F540U\Documents\code\Gestor_de_contenido_SG\Gestor de contenido SG\obj\Debug\Gestor de contenido SG.csprojAssemblyReference.cache
+C:\Users\F540U\Documents\code\Gestor_de_contenido_SG\Gestor de contenido SG\obj\Debug\Gestor_de_contenido_SG.Circuito.resources
+C:\Users\F540U\Documents\code\Gestor_de_contenido_SG\Gestor de contenido SG\obj\Debug\Gestor_de_contenido_SG.Columna.resources
+C:\Users\F540U\Documents\code\Gestor_de_contenido_SG\Gestor de contenido SG\obj\Debug\Gestor_de_contenido_SG.CrearPagina.resources
+C:\Users\F540U\Documents\code\Gestor_de_contenido_SG\Gestor de contenido SG\obj\Debug\Gestor_de_contenido_SG.Menu.resources
+C:\Users\F540U\Documents\code\Gestor_de_contenido_SG\Gestor de contenido SG\obj\Debug\Gestor_de_contenido_SG.Pagina.resources
+C:\Users\F540U\Documents\code\Gestor_de_contenido_SG\Gestor de contenido SG\obj\Debug\Gestor_de_contenido_SG.Bloque.resources
+C:\Users\F540U\Documents\code\Gestor_de_contenido_SG\Gestor de contenido SG\obj\Debug\Gestor_de_contenido_SG.Properties.Resources.resources
+C:\Users\F540U\Documents\code\Gestor_de_contenido_SG\Gestor de contenido SG\obj\Debug\Gestor de contenido SG.csproj.GenerateResource.cache
+C:\Users\F540U\Documents\code\Gestor_de_contenido_SG\Gestor de contenido SG\obj\Debug\Gestor de contenido SG.csproj.CoreCompileInputs.cache
+C:\Users\F540U\Documents\code\Gestor_de_contenido_SG\Gestor de contenido SG\obj\Debug\Gestor de contenido SG.exe
+C:\Users\F540U\Documents\code\Gestor_de_contenido_SG\Gestor de contenido SG\obj\Debug\Gestor de contenido SG.pdb

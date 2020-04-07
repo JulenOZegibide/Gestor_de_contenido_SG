@@ -8,7 +8,7 @@ namespace Gestor_de_contenido_SG
 {
     public class ClaseCircuito
     {
-        public int id,nivel, padre;
+        public int id, nivel, padre;
         public string titulo;
 
         public ClaseCircuito(int id,int nivel, int padre,string titulo)

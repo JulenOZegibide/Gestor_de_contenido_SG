@@ -21,7 +21,7 @@ namespace Gestor_de_contenido_SG
         public ClaseBloque(string titulo, int pagina_id)
         {
             this.titulo = titulo;
-            this.pagina_id = pagina_id;    
+            this.pagina_id = pagina_id;
         }
 
         public ClaseBloque()
