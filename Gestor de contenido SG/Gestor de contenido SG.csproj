@@ -51,6 +51,7 @@
     <Compile Include="FuncionesBD\BDBloques.cs" />
     <Compile Include="FuncionesBD\BDCircuitos.cs" />
     <Compile Include="FuncionesBD\BDColumnas.cs" />
+    <Compile Include="FuncionesBD\BDElementos.cs" />
     <Compile Include="FuncionesBD\BDPaginas.cs" />
     <Compile Include="Vistas\Circuito.cs">
       <SubType>Form</SubType>
@@ -135,6 +136,20 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Imagenes\titulo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Imagenes\foto.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Imagenes\parrafo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Imagenes\video.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Imagenes\return.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

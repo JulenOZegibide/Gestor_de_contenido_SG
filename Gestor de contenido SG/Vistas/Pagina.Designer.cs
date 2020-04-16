@@ -35,6 +35,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.nombre_pagina = new System.Windows.Forms.Label();
             this.pagina_id = new System.Windows.Forms.TextBox();
+            this.volver = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.volver)).BeginInit();
             this.SuspendLayout();
             // 
             // crear_bloque
@@ -102,12 +104,24 @@
             this.pagina_id.TabIndex = 8;
             this.pagina_id.Tag = "txt_nombre";
             // 
+            // volver
+            // 
+            this.volver.Image = global::Gestor_de_contenido_SG.Properties.Resources._return;
+            this.volver.Location = new System.Drawing.Point(875, 19);
+            this.volver.Name = "volver";
+            this.volver.Size = new System.Drawing.Size(23, 25);
+            this.volver.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.volver.TabIndex = 14;
+            this.volver.TabStop = false;
+            this.volver.Click += new System.EventHandler(this.volver_Click);
+            // 
             // Pagina
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(931, 334);
+            this.Controls.Add(this.volver);
             this.Controls.Add(this.pagina_id);
             this.Controls.Add(this.nombre_pagina);
             this.Controls.Add(this.nombre_bloque);
@@ -116,8 +130,9 @@
             this.Controls.Add(this.bloque_id);
             this.Controls.Add(this.crear_bloque);
             this.Name = "Pagina";
-            this.Text = "Form1";
+            this.Text = "Pagina";
             this.Load += new System.EventHandler(this.Form1_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.volver)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -132,6 +147,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label nombre_pagina;
         private System.Windows.Forms.TextBox pagina_id;
+        private System.Windows.Forms.PictureBox volver;
     }
 }
 

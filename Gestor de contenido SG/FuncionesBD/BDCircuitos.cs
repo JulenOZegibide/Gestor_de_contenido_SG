@@ -62,7 +62,7 @@ namespace Gestor_de_contenido_SG.FuncionesBD
                         ClaseCircuito ocircuito = new ClaseCircuito(Convert.ToInt16(objeto[0]), Convert.ToInt16(objeto[1]), Convert.ToInt16(objeto[2]), objeto[3].ToString());
                         Circuito.listaCircuitos.Add(ocircuito);
 
-                        Console.WriteLine();
+                        Console.WriteLine(ocircuito);
                         read = lector.Read();
                     }
                     while (read == true);
@@ -71,7 +71,6 @@ namespace Gestor_de_contenido_SG.FuncionesBD
                 }
                 else
                 {
-                    MessageBox.Show("No hay filas");
                     BDConexion.Close();
                     return null;
                 }

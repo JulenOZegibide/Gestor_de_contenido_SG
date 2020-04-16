@@ -11,20 +11,18 @@ namespace Gestor_de_contenido_SG.Clases
         public int id, ancho, columna_id;
         public string tipo, contenido;
 
-        public ClaseElemento(int id, string tipo, string contenido, int ancho, int columna_id)
+        public ClaseElemento(int id, string tipo, string contenido, int columna_id)
         {
             this.id = id;
             this.tipo = tipo;
             this.contenido = contenido;
-            this.ancho = ancho;
             this.columna_id = columna_id;
         }
 
-        public ClaseElemento(string tipo, string contenido, int ancho, int columna_id)
+        public ClaseElemento(string tipo, string contenido, int columna_id)
         {
             this.tipo = tipo;
             this.contenido = contenido;
-            this.ancho = ancho;
             this.columna_id = columna_id;
         }
 
@@ -61,16 +59,6 @@ namespace Gestor_de_contenido_SG.Clases
         public string getContenido()
         {
             return this.contenido;
-        }
-
-        public void setAncho(int ancho)
-        {
-            this.ancho = ancho;
-        }
-
-        public int getAncho()
-        {
-            return this.ancho;
         }
 
         public void setColumna_id(int columna_id)

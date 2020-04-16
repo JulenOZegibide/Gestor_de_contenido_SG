@@ -16,36 +16,50 @@ namespace Gestor_de_contenido_SG
         public CrearPagina()
         {
             InitializeComponent();
+
+            //funcion que se llama al cerrar la ventana
+            this.FormClosing += new FormClosingEventHandler(Controlador.cerrarPaginaActual);
         }
 
         public void crearPagina_Load(object sender, EventArgs e)
         {
-            Circuito.listaCircuitos.Clear();
+            //se rellena la lista de circuitos desde base de datos
             Circuito.listaCircuitos = BDCircuitos.buscarCircuitos();
-            foreach (ClaseCircuito ocircuito in Circuito.listaCircuitos)
+            //si la lista de circuitos no esta vacia se recorre dicha lista y se pintan los diferentes bloques en la pagina
+            if (Circuito.listaCircuitos != null)
             {
-                int nivel = ocircuito.nivel;
-
-                switch (nivel)
+                foreach (ClaseCircuito ocircuito in Circuito.listaCircuitos)
                 {
-                    case 1:
-                        lista_circuitos.Items.Add(ocircuito.titulo);
-                        break;
-                    case 2:
-                        lista_circuitos.Items.Add("  " + ocircuito.titulo);
-                        break;
-                    case 3:
-                        lista_circuitos.Items.Add("    " + ocircuito.titulo);
-                        break;
-                    case 4:
-                        lista_circuitos.Items.Add("      " + ocircuito.titulo);
-                        break;
-                    case 5:
-                        lista_circuitos.Items.Add("        " + ocircuito.titulo);
-                        break;
+                    int nivel = ocircuito.nivel;
+
+                    //dependiendo de a que nivel esten se les pondra una separacion para poder diferenciar a que altura estan
+                    switch (nivel)
+                    {
+                        case 1:
+                            lista_circuitos.Items.Add(ocircuito.titulo);
+                            break;
+                        case 2:
+                            lista_circuitos.Items.Add("  " + ocircuito.titulo);
+                            break;
+                        case 3:
+                            lista_circuitos.Items.Add("    " + ocircuito.titulo);
+                            break;
+                        case 4:
+                            lista_circuitos.Items.Add("      " + ocircuito.titulo);
+                            break;
+                        case 5:
+                            lista_circuitos.Items.Add("        " + ocircuito.titulo);
+                            break;
+                    }
+                    lista_circuitos.Sorted = true;                  
                 }
-                lista_circuitos.Sorted = true;
+                Circuito.listaCircuitos.Clear();
             }
+            else
+            {
+                MessageBox.Show("No existe ningun circuito todavia, asegurate de tener algun circuito antes de insertar una pagina");                
+            }
+            
         }
 
         public void button1_Click(object sender, EventArgs e)
@@ -55,11 +69,22 @@ namespace Gestor_de_contenido_SG
             string circuito = lista_circuitos.SelectedItem.ToString();
             circuito = circuito.Replace(" ", "");
 
+            //se busca en base al texto del elemento seleccionado de la lista de circuitos el id 
             ClaseCircuito ocircuito = BDCircuitos.buscarCircuitoPadre(circuito);
 
             int circuitoId = ocircuito.id;
 
+            //se crea la pagina con el titulo de la pagina y el id del circuito padre
             Pagina.crearPagina(tituloPagina, circuitoId);
+
+            this.Close();
+            Controlador.mostrarMenu();
+        }
+
+        private void volver_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            Controlador.mostrarMenu();
         }
     }
 }

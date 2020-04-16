@@ -119,7 +119,6 @@ namespace Gestor_de_contenido_SG.FuncionesBD
                 }
                 else
                 {
-                    MessageBox.Show("No hay filas");
                     BDConexion.Close();
                     return null;
                 }

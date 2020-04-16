@@ -70,21 +70,18 @@ namespace Gestor_de_contenido_SG.FuncionesBD
                 }
                 else
                 {
-                    MessageBox.Show("No hay filas");
                     BDConexion.Close();
                     return 0;
                 }
             }
             catch (DBConcurrencyException ex)
-            {
-                //problema cuando no existen ningun bloque devuelve error y lo fuerzo a que devuelva 0
+            {               
                 MessageBox.Show("Error de concurrencia:\n" + ex.Message);
                 BDConexion.Close();
                 return 0;
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
                 BDConexion.Close();
                 return 0;
             }
@@ -121,7 +118,6 @@ namespace Gestor_de_contenido_SG.FuncionesBD
                 }
                 else
                 {
-                    MessageBox.Show("No hay filas");
                     BDConexion.Close();
                     return null;
                 }

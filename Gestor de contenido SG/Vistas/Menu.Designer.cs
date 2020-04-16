@@ -75,7 +75,7 @@
             this.ClientSize = new System.Drawing.Size(784, 450);
             this.Controls.Add(this.menuStrip1);
             this.Name = "Menu";
-            this.Text = "Form1";
+            this.Text = "Menu";
             this.Load += new System.EventHandler(this.Menu_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();

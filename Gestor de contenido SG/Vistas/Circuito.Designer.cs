@@ -28,36 +28,27 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
             this.lista_circuitos = new System.Windows.Forms.ListBox();
             this.button1 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.titulo_circuito = new System.Windows.Forms.TextBox();
+            this.volver = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.volver)).BeginInit();
             this.SuspendLayout();
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(12, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(204, 33);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Crear circuito";
             // 
             // lista_circuitos
             // 
             this.lista_circuitos.FormattingEnabled = true;
             this.lista_circuitos.Items.AddRange(new object[] {
             "Crear circuito padre"});
-            this.lista_circuitos.Location = new System.Drawing.Point(12, 92);
+            this.lista_circuitos.Location = new System.Drawing.Point(12, 40);
             this.lista_circuitos.Name = "lista_circuitos";
-            this.lista_circuitos.Size = new System.Drawing.Size(215, 173);
+            this.lista_circuitos.Size = new System.Drawing.Size(254, 238);
             this.lista_circuitos.TabIndex = 1;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(81, 283);
+            this.button1.Location = new System.Drawing.Point(100, 283);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(81, 23);
             this.button1.TabIndex = 2;
@@ -68,7 +59,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(31, 60);
+            this.label2.Location = new System.Drawing.Point(29, 12);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(33, 13);
             this.label2.TabIndex = 3;
@@ -76,35 +67,46 @@
             // 
             // titulo_circuito
             // 
-            this.titulo_circuito.Location = new System.Drawing.Point(81, 57);
+            this.titulo_circuito.Location = new System.Drawing.Point(81, 9);
             this.titulo_circuito.Name = "titulo_circuito";
             this.titulo_circuito.Size = new System.Drawing.Size(100, 20);
             this.titulo_circuito.TabIndex = 4;
+            // 
+            // volver
+            // 
+            this.volver.Image = global::Gestor_de_contenido_SG.Properties.Resources._return;
+            this.volver.Location = new System.Drawing.Point(243, 9);
+            this.volver.Name = "volver";
+            this.volver.Size = new System.Drawing.Size(23, 25);
+            this.volver.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.volver.TabIndex = 15;
+            this.volver.TabStop = false;
+            this.volver.Click += new System.EventHandler(this.volver_Click);
             // 
             // Circuito
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(239, 318);
+            this.ClientSize = new System.Drawing.Size(278, 318);
+            this.Controls.Add(this.volver);
             this.Controls.Add(this.titulo_circuito);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.lista_circuitos);
-            this.Controls.Add(this.label1);
             this.Name = "Circuito";
-            this.Text = "Form1";
+            this.Text = "Crear circuito";
             this.Load += new System.EventHandler(this.Circuito_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.volver)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ListBox lista_circuitos;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox titulo_circuito;
+        private System.Windows.Forms.PictureBox volver;
     }
 }

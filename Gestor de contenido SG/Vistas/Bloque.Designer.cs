@@ -35,16 +35,19 @@
             this.nombre_bloque = new System.Windows.Forms.Label();
             this.contenedor = new System.Windows.Forms.Panel();
             this.columna_id = new System.Windows.Forms.Label();
+            this.volver = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.volver)).BeginInit();
             this.SuspendLayout();
             // 
             // bloque_id
             // 
             this.bloque_id.AutoSize = true;
-            this.bloque_id.Location = new System.Drawing.Point(229, 9);
+            this.bloque_id.Location = new System.Drawing.Point(229, 11);
             this.bloque_id.Name = "bloque_id";
             this.bloque_id.Size = new System.Drawing.Size(35, 13);
             this.bloque_id.TabIndex = 0;
             this.bloque_id.Text = "label1";
+            this.bloque_id.Visible = false;
             // 
             // nombre_columna
             // 
@@ -103,12 +106,24 @@
             this.columna_id.Size = new System.Drawing.Size(35, 13);
             this.columna_id.TabIndex = 12;
             this.columna_id.Text = "label1";
+            this.columna_id.Visible = false;
+            // 
+            // volver
+            // 
+            this.volver.Image = global::Gestor_de_contenido_SG.Properties.Resources._return;
+            this.volver.Location = new System.Drawing.Point(879, 12);
+            this.volver.Name = "volver";
+            this.volver.Size = new System.Drawing.Size(23, 25);
+            this.volver.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.volver.TabIndex = 16;
+            this.volver.TabStop = false;
+            this.volver.Click += new System.EventHandler(this.volver_Click);
             // 
             // Bloque
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(934, 450);
+            this.Controls.Add(this.volver);
             this.Controls.Add(this.columna_id);
             this.Controls.Add(this.contenedor);
             this.Controls.Add(this.nombre_bloque);
@@ -119,6 +134,7 @@
             this.Name = "Bloque";
             this.Text = "Bloque";
             this.Load += new System.EventHandler(this.Form2_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.volver)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -133,6 +149,7 @@
         private System.Windows.Forms.Label nombre_bloque;
         private System.Windows.Forms.Panel contenedor;
         private System.Windows.Forms.Label columna_id;
+        private System.Windows.Forms.PictureBox volver;
     }
 
 }
