@@ -117,4 +117,382 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="columna_id.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="columna_id.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="columna_id.Location" type="System.Drawing.Point, System.Drawing">
+    <value>224, 13</value>
+  </data>
+  <data name="columna_id.Size" type="System.Drawing.Size, System.Drawing">
+    <value>35, 13</value>
+  </data>
+  <data name="columna_id.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="columna_id.Text" xml:space="preserve">
+    <value>label1</value>
+  </data>
+  <data name="&gt;&gt;columna_id.Name" xml:space="preserve">
+    <value>columna_id</value>
+  </data>
+  <data name="&gt;&gt;columna_id.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;columna_id.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;columna_id.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="nombre_columna.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="nombre_columna.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 26.25pt, style=Bold</value>
+  </data>
+  <data name="nombre_columna.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="nombre_columna.Location" type="System.Drawing.Point, System.Drawing">
+    <value>396, 9</value>
+  </data>
+  <data name="nombre_columna.Size" type="System.Drawing.Size, System.Drawing">
+    <value>115, 39</value>
+  </data>
+  <data name="nombre_columna.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
+  </data>
+  <data name="nombre_columna.Text" xml:space="preserve">
+    <value>label3</value>
+  </data>
+  <data name="&gt;&gt;nombre_columna.Name" xml:space="preserve">
+    <value>nombre_columna</value>
+  </data>
+  <data name="&gt;&gt;nombre_columna.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;nombre_columna.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;nombre_columna.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="contenedorColumna.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 51</value>
+  </data>
+  <data name="contenedorColumna.Size" type="System.Drawing.Size, System.Drawing">
+    <value>987, 196</value>
+  </data>
+  <data name="contenedorColumna.TabIndex" type="System.Int32, mscorlib">
+    <value>12</value>
+  </data>
+  <data name="&gt;&gt;contenedorColumna.Name" xml:space="preserve">
+    <value>contenedorColumna</value>
+  </data>
+  <data name="&gt;&gt;contenedorColumna.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;contenedorColumna.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;contenedorColumna.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="borrar.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="borrar.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="borrar.Location" type="System.Drawing.Point, System.Drawing">
+    <value>260, 0</value>
+  </data>
+  <data name="borrar.Size" type="System.Drawing.Size, System.Drawing">
+    <value>469, 137</value>
+  </data>
+  <data name="borrar.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="borrar.Text" xml:space="preserve">
+    <value>borrar elemento</value>
+  </data>
+  <data name="borrar.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>BottomCenter</value>
+  </data>
+  <data name="&gt;&gt;borrar.Name" xml:space="preserve">
+    <value>borrar</value>
+  </data>
+  <data name="&gt;&gt;borrar.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;borrar.Parent" xml:space="preserve">
+    <value>acciones</value>
+  </data>
+  <data name="&gt;&gt;borrar.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="insertarTitulo.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Left</value>
+  </data>
+  <data name="insertarTitulo.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="insertarTitulo.Location" type="System.Drawing.Point, System.Drawing">
+    <value>130, 0</value>
+  </data>
+  <data name="insertarTitulo.Size" type="System.Drawing.Size, System.Drawing">
+    <value>130, 137</value>
+  </data>
+  <data name="insertarTitulo.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="insertarTitulo.Text" xml:space="preserve">
+    <value>titulo</value>
+  </data>
+  <data name="insertarTitulo.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>BottomCenter</value>
+  </data>
+  <data name="&gt;&gt;insertarTitulo.Name" xml:space="preserve">
+    <value>insertarTitulo</value>
+  </data>
+  <data name="&gt;&gt;insertarTitulo.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;insertarTitulo.Parent" xml:space="preserve">
+    <value>acciones</value>
+  </data>
+  <data name="&gt;&gt;insertarTitulo.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="insertarParrafo.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Right</value>
+  </data>
+  <data name="insertarParrafo.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="insertarParrafo.Location" type="System.Drawing.Point, System.Drawing">
+    <value>729, 0</value>
+  </data>
+  <data name="insertarParrafo.Size" type="System.Drawing.Size, System.Drawing">
+    <value>130, 137</value>
+  </data>
+  <data name="insertarParrafo.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="insertarParrafo.Text" xml:space="preserve">
+    <value>parrafo</value>
+  </data>
+  <data name="insertarParrafo.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>BottomCenter</value>
+  </data>
+  <data name="&gt;&gt;insertarParrafo.Name" xml:space="preserve">
+    <value>insertarParrafo</value>
+  </data>
+  <data name="&gt;&gt;insertarParrafo.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;insertarParrafo.Parent" xml:space="preserve">
+    <value>acciones</value>
+  </data>
+  <data name="&gt;&gt;insertarParrafo.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="insertarVideo.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Right</value>
+  </data>
+  <data name="insertarVideo.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="insertarVideo.Location" type="System.Drawing.Point, System.Drawing">
+    <value>859, 0</value>
+  </data>
+  <data name="insertarVideo.Size" type="System.Drawing.Size, System.Drawing">
+    <value>130, 137</value>
+  </data>
+  <data name="insertarVideo.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="insertarVideo.Text" xml:space="preserve">
+    <value>video</value>
+  </data>
+  <data name="insertarVideo.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>BottomCenter</value>
+  </data>
+  <data name="&gt;&gt;insertarVideo.Name" xml:space="preserve">
+    <value>insertarVideo</value>
+  </data>
+  <data name="&gt;&gt;insertarVideo.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;insertarVideo.Parent" xml:space="preserve">
+    <value>acciones</value>
+  </data>
+  <data name="&gt;&gt;insertarVideo.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="insertarImagen.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Left</value>
+  </data>
+  <data name="insertarImagen.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="insertarImagen.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="insertarImagen.Size" type="System.Drawing.Size, System.Drawing">
+    <value>130, 137</value>
+  </data>
+  <data name="insertarImagen.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="insertarImagen.Text" xml:space="preserve">
+    <value>imagen</value>
+  </data>
+  <data name="insertarImagen.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>BottomCenter</value>
+  </data>
+  <data name="&gt;&gt;insertarImagen.Name" xml:space="preserve">
+    <value>insertarImagen</value>
+  </data>
+  <data name="&gt;&gt;insertarImagen.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;insertarImagen.Parent" xml:space="preserve">
+    <value>acciones</value>
+  </data>
+  <data name="&gt;&gt;insertarImagen.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="acciones.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Bottom</value>
+  </data>
+  <data name="acciones.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 378</value>
+  </data>
+  <data name="acciones.Size" type="System.Drawing.Size, System.Drawing">
+    <value>989, 137</value>
+  </data>
+  <data name="acciones.TabIndex" type="System.Int32, mscorlib">
+    <value>13</value>
+  </data>
+  <data name="&gt;&gt;acciones.Name" xml:space="preserve">
+    <value>acciones</value>
+  </data>
+  <data name="&gt;&gt;acciones.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;acciones.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;acciones.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="volver.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="volver.Location" type="System.Drawing.Point, System.Drawing">
+    <value>25, 9</value>
+  </data>
+  <data name="volver.Size" type="System.Drawing.Size, System.Drawing">
+    <value>23, 25</value>
+  </data>
+  <data name="volver.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
+    <value>StretchImage</value>
+  </data>
+  <data name="volver.TabIndex" type="System.Int32, mscorlib">
+    <value>15</value>
+  </data>
+  <data name="&gt;&gt;volver.Name" xml:space="preserve">
+    <value>volver</value>
+  </data>
+  <data name="&gt;&gt;volver.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;volver.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;volver.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="elemento_id.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="elemento_id.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="elemento_id.Location" type="System.Drawing.Point, System.Drawing">
+    <value>307, 13</value>
+  </data>
+  <data name="elemento_id.Size" type="System.Drawing.Size, System.Drawing">
+    <value>35, 13</value>
+  </data>
+  <data name="elemento_id.TabIndex" type="System.Int32, mscorlib">
+    <value>16</value>
+  </data>
+  <data name="elemento_id.Text" xml:space="preserve">
+    <value>label1</value>
+  </data>
+  <data name="&gt;&gt;elemento_id.Name" xml:space="preserve">
+    <value>elemento_id</value>
+  </data>
+  <data name="&gt;&gt;elemento_id.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;elemento_id.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;elemento_id.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="borrarColumna.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="borrarColumna.Location" type="System.Drawing.Point, System.Drawing">
+    <value>86, 9</value>
+  </data>
+  <data name="borrarColumna.Size" type="System.Drawing.Size, System.Drawing">
+    <value>23, 25</value>
+  </data>
+  <data name="borrarColumna.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
+    <value>StretchImage</value>
+  </data>
+  <data name="borrarColumna.TabIndex" type="System.Int32, mscorlib">
+    <value>17</value>
+  </data>
+  <data name="&gt;&gt;borrarColumna.Name" xml:space="preserve">
+    <value>borrarColumna</value>
+  </data>
+  <data name="&gt;&gt;borrarColumna.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;borrarColumna.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;borrarColumna.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>989, 515</value>
+  </data>
+  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
+    <value>CenterScreen</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Columna</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>Columna</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>

@@ -80,7 +80,7 @@ namespace Gestor_de_contenido_SG
                 bloque.Width = contenedor.Width - 40;
                 bloque.Height = 300;
                 bloque.Top = Convert.ToInt16(altura);
-                bloque.Click += delegate (object send, EventArgs ea) { Controlador.mostrarBloque(sender, e, id_bloque.Text, nombre.Text); this.Hide(); };
+                bloque.Click += delegate (object send, EventArgs ea) { Controlador.mostrarBloque(sender, e, nombre.Text); this.Hide(); };
                 contenedor.Controls.Add(bloque);
 
                 ClaseBloque obloque = new ClaseBloque(nombre.Text, Convert.ToInt16(pagina_id.Text));
@@ -127,7 +127,7 @@ namespace Gestor_de_contenido_SG
                     bloque.Width = contenedor.Width - 40;
                     bloque.Height = 300;
                     bloque.Top = Convert.ToInt16(altura);
-                    bloque.Click += delegate (object send, EventArgs ea) { Controlador.mostrarBloque(sender, e, id_bloque.Text, nombre.Text); this.Hide(); };
+                    bloque.Click += delegate (object send, EventArgs ea) { Controlador.mostrarBloque(sender, e, nombre.Text); this.Hide(); };
                     contenedor.Controls.Add(bloque);
 
                     altura = altura + 305;
@@ -145,6 +145,17 @@ namespace Gestor_de_contenido_SG
         {
             this.Close();
             Controlador.mostrarMenu();
+        }
+
+        private void borrarPagina_Click(object sender, EventArgs e)
+        {
+            DialogResult confirmar = MessageBox.Show("Ten cuidado, al borrar esta pagina borraras todos los bloques con sus respectivas columnas y elementos que contiene, estas seguro de querer borrar esta pagina", "Borrar", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+
+            if (confirmar == DialogResult.Yes)
+            {
+                BDPaginas.borrarPagina(pagina_id.Text);
+                this.Close();             
+            }
         }
     }
 }

@@ -136,5 +136,45 @@ namespace Gestor_de_contenido_SG.FuncionesBD
                 return null;
             }
         }
+
+        public static void borrarPagina(string id)
+        {
+            Controlador.Conectar();
+            OleDbConnection BDConexion = Controlador.BDConexion;
+            BDConexion.Open();
+            try
+            {
+                string borrarElementos = "DELETE FROM ELEMENTOS WHERE COLUMNA_ID IN(SELECT ID FROM COLUMNAS WHERE BLOQUE_ID IN(SELECT ID FROM BLOQUES WHERE PAGINA_ID =" + id + "))";
+                OleDbCommand cmd4 = new OleDbCommand(borrarElementos, BDConexion);
+
+                cmd4.ExecuteNonQuery();
+
+                string borrarColumnas = "DELETE FROM COLUMNAS WHERE BLOQUE_ID IN(SELECT ID FROM BLOQUES WHERE PAGINA_ID =" + id + ")";
+                OleDbCommand cmd3 = new OleDbCommand(borrarColumnas, BDConexion);
+
+                cmd3.ExecuteNonQuery();
+
+                string borrarBloques = "DELETE FROM BLOQUES WHERE PAGINA_ID = " + id;
+                OleDbCommand cmd2 = new OleDbCommand(borrarBloques, BDConexion);
+
+                cmd2.ExecuteNonQuery();
+
+                string borrarPagina = "DELETE FROM PAGINAS WHERE ID = " + id;
+                OleDbCommand cmd1 = new OleDbCommand(borrarPagina, BDConexion);
+
+                cmd1.ExecuteNonQuery();
+
+                MessageBox.Show("Pagina eliminada");
+            }
+            catch (DBConcurrencyException ex)
+            {
+                MessageBox.Show("Error de concurrencia:\n" + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            BDConexion.Close();
+        }
     }
 }

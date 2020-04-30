@@ -29,6 +29,8 @@ namespace Gestor_de_contenido_SG
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
 
+                //Application.Run(new Columna("6", "columna2", 1260, 570));
+                //Application.Run(new Bloque("11", "bloque1"));
                 Application.Run(menu = new Menu());
             }
             catch (Exception e)
@@ -99,16 +101,16 @@ namespace Gestor_de_contenido_SG
             circuito.Show();
         }
 
-        public static void mostrarBloque(object sender, EventArgs e, string id, string nombre)
+        public static void mostrarBloque(object sender, EventArgs e, string nombre)
         {
-            bloque = new Bloque(id, nombre);
+            bloque = new Bloque(nombre);
 
             bloque.Show();
         }
 
-        public static void mostrarColumna(object sender, EventArgs e, string id, string nombre)
+        public static void mostrarColumna(object sender, EventArgs e, string nombre, int anchoColumna, int altoColumna)
         {
-            columna = new Columna(id, nombre);
+            columna = new Columna(nombre, anchoColumna, altoColumna);
 
             columna.Show();
         }

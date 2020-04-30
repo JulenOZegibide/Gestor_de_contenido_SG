@@ -35,7 +35,7 @@ namespace Gestor_de_contenido_SG
             this.Hide();
         }
 
-        private void Menu_Load(object sender, EventArgs e)
+        private static void Menu_Load(object sender, EventArgs e)
         {
             //se rellena desde base de datos la lista de paginas
             Pagina.listaPaginas = BDPaginas.buscarPaginas();

@@ -8,21 +8,27 @@ namespace Gestor_de_contenido_SG.Clases
 {
     class ClaseElemento
     {
-        public int id, ancho, columna_id;
+        public int id, ancho, espacio_izquierda, espacio_arriba, columna_id;
         public string tipo, contenido;
 
-        public ClaseElemento(int id, string tipo, string contenido, int columna_id)
+        public ClaseElemento(int id, string tipo, string contenido, int columna_id, int ancho, int espacio_izquierda, int espacio_arriba)
         {
             this.id = id;
             this.tipo = tipo;
             this.contenido = contenido;
+            this.ancho = ancho;
+            this.espacio_izquierda = espacio_izquierda;
+            this.espacio_arriba = espacio_arriba;
             this.columna_id = columna_id;
         }
 
-        public ClaseElemento(string tipo, string contenido, int columna_id)
+        public ClaseElemento(string tipo, string contenido, int columna_id, int ancho, int espacio_izquierda, int espacio_arriba)
         {
             this.tipo = tipo;
             this.contenido = contenido;
+            this.ancho = ancho;
+            this.espacio_izquierda = espacio_izquierda;
+            this.espacio_arriba = espacio_arriba;
             this.columna_id = columna_id;
         }
 
@@ -59,6 +65,36 @@ namespace Gestor_de_contenido_SG.Clases
         public string getContenido()
         {
             return this.contenido;
+        }
+
+        public void setAncho(int ancho)
+        {
+            this.ancho = ancho;
+        }
+
+        public int getAncho()
+        {
+            return this.ancho;
+        }
+
+        public void setEspacio_izquierda(int espacio_izquierda)
+        {
+            this.espacio_izquierda = espacio_izquierda;
+        }
+
+        public int getEspacio_izquierda()
+        {
+            return this.espacio_izquierda;
+        }
+
+        public void setEspacio_arriba(int espacio_arriba)
+        {
+            this.espacio_arriba = espacio_arriba;
+        }
+
+        public int getEspacio_arriba()
+        {
+            return this.espacio_arriba;
         }
 
         public void setColumna_id(int columna_id)

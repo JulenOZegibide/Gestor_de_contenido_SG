@@ -65,9 +65,18 @@ namespace Gestor_de_contenido_SG
         public void button1_Click(object sender, EventArgs e)
         {
             string tituloPagina = titulo_pagina.Text;
+            string circuito;
 
-            string circuito = lista_circuitos.SelectedItem.ToString();
-            circuito = circuito.Replace(" ", "");
+            if (lista_circuitos.SelectedItem != null)
+            {
+                circuito = lista_circuitos.SelectedItem.ToString();
+                circuito = circuito.Replace(" ", "");
+            }
+            else
+            {
+                circuito = null;
+                throw new Exception("Debes seleccionar a que circuito pertenece la pagina");
+            }
 
             //se busca en base al texto del elemento seleccionado de la lista de circuitos el id 
             ClaseCircuito ocircuito = BDCircuitos.buscarCircuitoPadre(circuito);

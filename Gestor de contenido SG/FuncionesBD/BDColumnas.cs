@@ -19,12 +19,13 @@ namespace Gestor_de_contenido_SG.FuncionesBD
             BDConexion.Open();
             try
             {
-                string insertar = "INSERT INTO COLUMNAS(TITULO,ANCHO,BLOQUE_ID) VALUES (@titulo, @ancho, @bloqueId)";
+                string insertar = "INSERT INTO COLUMNAS(TITULO,ANCHO,BLOQUE_ID,ALTO) VALUES (@titulo, @ancho, @bloqueId, @alto)";
                 OleDbCommand cmd = new OleDbCommand(insertar, BDConexion);
 
                 cmd.Parameters.AddWithValue("@titulo", ocolumna.titulo);
                 cmd.Parameters.AddWithValue("@ancho", ocolumna.ancho);
                 cmd.Parameters.AddWithValue("@bloqueId", ocolumna.bloque_id);
+                cmd.Parameters.AddWithValue("@alto", ocolumna.alto);
 
                 cmd.ExecuteNonQuery();
                 MessageBox.Show("Registro guardado");
@@ -110,7 +111,7 @@ namespace Gestor_de_contenido_SG.FuncionesBD
                     {
                         int NumberOfColums = lector.GetValues(objeto);
 
-                        ClaseColumna ocolumna = new ClaseColumna(Convert.ToInt16(objeto[0]), objeto[1].ToString(), Convert.ToInt16(objeto[2]), Convert.ToInt16(objeto[3]));
+                        ClaseColumna ocolumna = new ClaseColumna(Convert.ToInt16(objeto[0]), objeto[1].ToString(), Convert.ToInt16(objeto[2]), Convert.ToInt16(objeto[3]), Convert.ToInt16(objeto[4]));
                         Bloque.listaColumnas.Add(ocolumna);
 
                         Console.WriteLine();
@@ -140,17 +141,43 @@ namespace Gestor_de_contenido_SG.FuncionesBD
             }
         }
 
-        public static void actualizarAncho(string ancho,int id)
+        public static void actualizarAncho(int ancho,int id)
         {
             Controlador.Conectar();
             OleDbConnection BDConexion = Controlador.BDConexion;
             BDConexion.Open();
             try
             {
-                string insertar = "UPDATE COLUMNAS SET ANCHO = @ancho WHERE ID = @id";
-                OleDbCommand cmd = new OleDbCommand(insertar, BDConexion);
+                string actualizar = "UPDATE COLUMNAS SET ANCHO = @ancho WHERE ID = @id";
+                OleDbCommand cmd = new OleDbCommand(actualizar, BDConexion);
 
                 cmd.Parameters.AddWithValue("@ancho", ancho);
+                cmd.Parameters.AddWithValue("@id", id);
+
+                cmd.ExecuteNonQuery();
+            }
+            catch (DBConcurrencyException ex)
+            {
+                MessageBox.Show("Error de concurrencia:\n" + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            BDConexion.Close();
+        }
+
+        public static void actualizarAlto(int alto, int id)
+        {
+            Controlador.Conectar();
+            OleDbConnection BDConexion = Controlador.BDConexion;
+            BDConexion.Open();
+            try
+            {
+                string actualizar = "UPDATE COLUMNAS SET ALTO = @alto WHERE ID = @id";
+                OleDbCommand cmd = new OleDbCommand(actualizar, BDConexion);
+
+                cmd.Parameters.AddWithValue("@alto", alto);
                 cmd.Parameters.AddWithValue("@id", id);
 
                 cmd.ExecuteNonQuery();
@@ -215,8 +242,38 @@ namespace Gestor_de_contenido_SG.FuncionesBD
             {
                 //MessageBox.Show(ex.Message);
                 BDConexion.Close();
-                return 0;
+                return 0;               
             }
+        }
+
+        public static void borrarColumna(string id)
+        {
+            Controlador.Conectar();
+            OleDbConnection BDConexion = Controlador.BDConexion;
+            BDConexion.Open();
+            try
+            {                
+                string borrarColumna = "DELETE FROM COLUMNAS WHERE ID = " + id;
+                OleDbCommand cmd1 = new OleDbCommand(borrarColumna, BDConexion);
+
+                cmd1.ExecuteNonQuery();
+
+                string borrarElementos = "DELETE FROM ELEMENTOS WHERE COLUMNA_ID = " + id;
+                OleDbCommand cmd2 = new OleDbCommand(borrarElementos, BDConexion);
+
+                cmd2.ExecuteNonQuery();
+
+                MessageBox.Show("Columna eliminada");
+            }
+            catch (DBConcurrencyException ex)
+            {
+                MessageBox.Show("Error de concurrencia:\n" + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            BDConexion.Close();
         }
     }
 }

@@ -36,12 +36,14 @@
             this.nombre_pagina = new System.Windows.Forms.Label();
             this.pagina_id = new System.Windows.Forms.TextBox();
             this.volver = new System.Windows.Forms.PictureBox();
+            this.borrarPagina = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.volver)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.borrarPagina)).BeginInit();
             this.SuspendLayout();
             // 
             // crear_bloque
             // 
-            this.crear_bloque.Location = new System.Drawing.Point(41, 32);
+            this.crear_bloque.Location = new System.Drawing.Point(152, 32);
             this.crear_bloque.Name = "crear_bloque";
             this.crear_bloque.Size = new System.Drawing.Size(95, 23);
             this.crear_bloque.TabIndex = 0;
@@ -51,7 +53,7 @@
             // 
             // bloque_id
             // 
-            this.bloque_id.Location = new System.Drawing.Point(189, 6);
+            this.bloque_id.Location = new System.Drawing.Point(300, 6);
             this.bloque_id.Name = "bloque_id";
             this.bloque_id.Size = new System.Drawing.Size(24, 20);
             this.bloque_id.TabIndex = 3;
@@ -70,7 +72,7 @@
             // 
             // nombre_bloque
             // 
-            this.nombre_bloque.Location = new System.Drawing.Point(66, 6);
+            this.nombre_bloque.Location = new System.Drawing.Point(177, 6);
             this.nombre_bloque.Name = "nombre_bloque";
             this.nombre_bloque.Size = new System.Drawing.Size(100, 20);
             this.nombre_bloque.TabIndex = 6;
@@ -79,7 +81,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(23, 9);
+            this.label2.Location = new System.Drawing.Point(134, 9);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(44, 13);
             this.label2.TabIndex = 5;
@@ -90,7 +92,7 @@
             // 
             this.nombre_pagina.AutoSize = true;
             this.nombre_pagina.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nombre_pagina.Location = new System.Drawing.Point(390, 19);
+            this.nombre_pagina.Location = new System.Drawing.Point(436, 16);
             this.nombre_pagina.Name = "nombre_pagina";
             this.nombre_pagina.Size = new System.Drawing.Size(115, 39);
             this.nombre_pagina.TabIndex = 7;
@@ -98,7 +100,7 @@
             // 
             // pagina_id
             // 
-            this.pagina_id.Location = new System.Drawing.Point(252, 6);
+            this.pagina_id.Location = new System.Drawing.Point(363, 6);
             this.pagina_id.Name = "pagina_id";
             this.pagina_id.Size = new System.Drawing.Size(24, 20);
             this.pagina_id.TabIndex = 8;
@@ -107,7 +109,7 @@
             // volver
             // 
             this.volver.Image = global::Gestor_de_contenido_SG.Properties.Resources._return;
-            this.volver.Location = new System.Drawing.Point(875, 19);
+            this.volver.Location = new System.Drawing.Point(24, 9);
             this.volver.Name = "volver";
             this.volver.Size = new System.Drawing.Size(23, 25);
             this.volver.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -115,12 +117,25 @@
             this.volver.TabStop = false;
             this.volver.Click += new System.EventHandler(this.volver_Click);
             // 
+            // borrarPagina
+            // 
+            this.borrarPagina.Image = global::Gestor_de_contenido_SG.Properties.Resources.papelera;
+            this.borrarPagina.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.borrarPagina.Location = new System.Drawing.Point(85, 9);
+            this.borrarPagina.Name = "borrarPagina";
+            this.borrarPagina.Size = new System.Drawing.Size(23, 25);
+            this.borrarPagina.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.borrarPagina.TabIndex = 18;
+            this.borrarPagina.TabStop = false;
+            this.borrarPagina.Click += new System.EventHandler(this.borrarPagina_Click);
+            // 
             // Pagina
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(931, 334);
+            this.Controls.Add(this.borrarPagina);
             this.Controls.Add(this.volver);
             this.Controls.Add(this.pagina_id);
             this.Controls.Add(this.nombre_pagina);
@@ -133,6 +148,7 @@
             this.Text = "Pagina";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.volver)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.borrarPagina)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -148,6 +164,7 @@
         private System.Windows.Forms.Label nombre_pagina;
         private System.Windows.Forms.TextBox pagina_id;
         private System.Windows.Forms.PictureBox volver;
+        private System.Windows.Forms.PictureBox borrarPagina;
     }
 }
 

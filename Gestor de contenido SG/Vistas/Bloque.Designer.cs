@@ -34,24 +34,24 @@
             this.crear_columna = new System.Windows.Forms.Button();
             this.nombre_bloque = new System.Windows.Forms.Label();
             this.contenedor = new System.Windows.Forms.Panel();
-            this.columna_id = new System.Windows.Forms.Label();
             this.volver = new System.Windows.Forms.PictureBox();
+            this.borrarBloque = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.volver)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.borrarBloque)).BeginInit();
             this.SuspendLayout();
             // 
             // bloque_id
             // 
             this.bloque_id.AutoSize = true;
-            this.bloque_id.Location = new System.Drawing.Point(229, 11);
+            this.bloque_id.Location = new System.Drawing.Point(326, 8);
             this.bloque_id.Name = "bloque_id";
             this.bloque_id.Size = new System.Drawing.Size(35, 13);
             this.bloque_id.TabIndex = 0;
             this.bloque_id.Text = "label1";
-            this.bloque_id.Visible = false;
             // 
             // nombre_columna
             // 
-            this.nombre_columna.Location = new System.Drawing.Point(78, 9);
+            this.nombre_columna.Location = new System.Drawing.Point(175, 6);
             this.nombre_columna.Name = "nombre_columna";
             this.nombre_columna.Size = new System.Drawing.Size(100, 20);
             this.nombre_columna.TabIndex = 9;
@@ -60,7 +60,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(35, 12);
+            this.label2.Location = new System.Drawing.Point(132, 9);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(44, 13);
             this.label2.TabIndex = 8;
@@ -69,7 +69,7 @@
             // 
             // crear_columna
             // 
-            this.crear_columna.Location = new System.Drawing.Point(53, 35);
+            this.crear_columna.Location = new System.Drawing.Point(150, 32);
             this.crear_columna.Name = "crear_columna";
             this.crear_columna.Size = new System.Drawing.Size(95, 23);
             this.crear_columna.TabIndex = 7;
@@ -81,7 +81,7 @@
             // 
             this.nombre_bloque.AutoSize = true;
             this.nombre_bloque.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nombre_bloque.Location = new System.Drawing.Point(409, 12);
+            this.nombre_bloque.Location = new System.Drawing.Point(436, 16);
             this.nombre_bloque.Name = "nombre_bloque";
             this.nombre_bloque.Size = new System.Drawing.Size(115, 39);
             this.nombre_bloque.TabIndex = 10;
@@ -98,20 +98,10 @@
             this.contenedor.Size = new System.Drawing.Size(840, 374);
             this.contenedor.TabIndex = 11;
             // 
-            // columna_id
-            // 
-            this.columna_id.AutoSize = true;
-            this.columna_id.Location = new System.Drawing.Point(310, 11);
-            this.columna_id.Name = "columna_id";
-            this.columna_id.Size = new System.Drawing.Size(35, 13);
-            this.columna_id.TabIndex = 12;
-            this.columna_id.Text = "label1";
-            this.columna_id.Visible = false;
-            // 
             // volver
             // 
             this.volver.Image = global::Gestor_de_contenido_SG.Properties.Resources._return;
-            this.volver.Location = new System.Drawing.Point(879, 12);
+            this.volver.Location = new System.Drawing.Point(24, 9);
             this.volver.Name = "volver";
             this.volver.Size = new System.Drawing.Size(23, 25);
             this.volver.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -119,12 +109,24 @@
             this.volver.TabStop = false;
             this.volver.Click += new System.EventHandler(this.volver_Click);
             // 
+            // borrarBloque
+            // 
+            this.borrarBloque.Image = global::Gestor_de_contenido_SG.Properties.Resources.papelera;
+            this.borrarBloque.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.borrarBloque.Location = new System.Drawing.Point(85, 9);
+            this.borrarBloque.Name = "borrarBloque";
+            this.borrarBloque.Size = new System.Drawing.Size(23, 25);
+            this.borrarBloque.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.borrarBloque.TabIndex = 19;
+            this.borrarBloque.TabStop = false;
+            this.borrarBloque.Click += new System.EventHandler(this.borrarBloque_Click);
+            // 
             // Bloque
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(934, 450);
+            this.Controls.Add(this.borrarBloque);
             this.Controls.Add(this.volver);
-            this.Controls.Add(this.columna_id);
             this.Controls.Add(this.contenedor);
             this.Controls.Add(this.nombre_bloque);
             this.Controls.Add(this.nombre_columna);
@@ -135,6 +137,7 @@
             this.Text = "Bloque";
             this.Load += new System.EventHandler(this.Form2_Load);
             ((System.ComponentModel.ISupportInitialize)(this.volver)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.borrarBloque)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -148,8 +151,8 @@
         private System.Windows.Forms.Button crear_columna;
         private System.Windows.Forms.Label nombre_bloque;
         private System.Windows.Forms.Panel contenedor;
-        private System.Windows.Forms.Label columna_id;
         private System.Windows.Forms.PictureBox volver;
+        private System.Windows.Forms.PictureBox borrarBloque;
     }
 
 }

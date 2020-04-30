@@ -8,22 +8,24 @@ namespace Gestor_de_contenido_SG
 {
     public class ClaseColumna
     {
-        public int id, ancho, bloque_id;
+        public int id, ancho, bloque_id, alto;
         public string titulo;
 
-        public ClaseColumna(int id, string titulo, int ancho, int bloque_id)
+        public ClaseColumna(int id, string titulo, int ancho, int bloque_id, int alto)
         {
             this.id = id;
             this.titulo = titulo;
             this.ancho = ancho;           
             this.bloque_id = bloque_id;
+            this.alto = alto;
         }
 
-        public ClaseColumna(string titulo, int ancho, int bloque_id)
+        public ClaseColumna(string titulo, int ancho, int bloque_id, int alto)
         {
             this.titulo = titulo;
             this.ancho = ancho;
             this.bloque_id = bloque_id;
+            this.alto = alto;
         }
 
         public ClaseColumna()
@@ -69,6 +71,16 @@ namespace Gestor_de_contenido_SG
         public int getBloque_id()
         {
             return this.bloque_id;
+        }
+
+        public void setAlto(int alto)
+        {
+            this.alto = alto;
+        }
+
+        public int getAlto()
+        {
+            return this.alto;
         }
     }
 }
