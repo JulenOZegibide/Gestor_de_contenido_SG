@@ -16,6 +16,7 @@ namespace Gestor_de_contenido_SG
 {  
     public partial class Bloque : Form
     {
+        //variables globales
         public static ArrayList listaColumnas = new ArrayList();
         private int altura = 50;      
         private int contador;
@@ -54,12 +55,17 @@ namespace Gestor_de_contenido_SG
 
         public void Form2_Load(object sender, EventArgs e)
         {
-            pintarBloques();
-        }
 
+        }
 
         public void pintarBloques()
         {
+            altura = 0;
+
+            //limpiar la lista de columnas y las columnas que contiene el bloque para evitar repetidos
+            listaColumnas.Clear();
+            contenedor.Controls.Clear();
+
             //se rellena la lista de columnas desde base de datos para posteriormente recorrerla
             listaColumnas = BDColumnas.buscarColumnas(bloque_id.Text);
 
@@ -82,13 +88,15 @@ namespace Gestor_de_contenido_SG
                     panel1.AutoSize = true;
                     panel1.MaximumSize = new Size(contenedor.Width, 1500);
                     panel1.MinimumSize = new Size(200, 100);
+                    panel1.BackColor = Color.Transparent;               
 
                     //caja de texto donde se guarda el nombre de la columna
                     Label nombre = new Label();
                     nombre.Text = ocolumna.titulo;
                     nombre.AutoSize = true;
                     nombre.Font = new Font("Arial", 22, FontStyle.Bold);
-                    nombre.TextAlign = ContentAlignment.BottomLeft;
+                    nombre.Location = new Point(30, 30);
+                    nombre.Visible = false;
 
                     panel1.Controls.Add(nombre);
 
@@ -99,7 +107,9 @@ namespace Gestor_de_contenido_SG
 
                     //añade un evento cuando se hace click sobre una columna
                     panel1.Click += delegate (object send, EventArgs ea) { Controlador.mostrarColumna(send, ea, ocolumna.titulo, panel1.Width,panel1.Height); Hide(); };
-
+                    panel1.MouseHover += delegate (object send, EventArgs ea) { nombre.Visible = true; panel1.BackColor = Color.LightGray; };
+                    panel1.MouseLeave += delegate (object send, EventArgs ea) { nombre.Visible = false; panel1.BackColor = Color.Transparent; };
+                    panel1.BringToFront();
                     contenedor.Controls.Add(panel1);
 
                     contador++;
@@ -310,6 +320,11 @@ namespace Gestor_de_contenido_SG
                 BDBloques.borrarBloque(bloque_id.Text);
                 this.Close();
             }
+        }
+
+        private void Bloque_Activated(object sender, EventArgs e)
+        {
+            pintarBloques();
         }
     }
 }

@@ -87,7 +87,6 @@ namespace Gestor_de_contenido_SG.FuncionesBD
                 BDConexion.Close();
                 return null;
             }
-
         }
 
         public static ClaseCircuito buscarCircuitoPadre(string circuito)
@@ -139,6 +138,53 @@ namespace Gestor_de_contenido_SG.FuncionesBD
                 BDConexion.Close();
                 return null;
             }
+        }
+
+        public static bool contieneCircuitos(int circuitoId)
+        {
+            Controlador.Conectar();
+            OleDbConnection BDConexion = Controlador.BDConexion;
+            BDConexion.Open();
+            try
+            {
+                string buscar = "SELECT * FROM CIRCUITOS WHERE CIRCUITO_PADRE = "+ circuitoId;
+                OleDbCommand cmd = new OleDbCommand(buscar, BDConexion);
+                OleDbDataReader lector = cmd.ExecuteReader();
+                object[] objeto = new object[10];
+                bool read;
+                if (lector.Read())
+                {
+                    do
+                    {
+                        int NumberOfColums = lector.GetValues(objeto);
+
+                        CrearPagina.contieneCircuitos = true;
+
+                        read = lector.Read();
+                    }
+                    while (read == true);
+                    BDConexion.Close();
+                    return CrearPagina.contieneCircuitos;
+                }
+                else
+                {
+                    BDConexion.Close();
+                    return false;
+                }
+            }
+            catch (DBConcurrencyException ex)
+            {
+                MessageBox.Show("Error de concurrencia:\n" + ex.Message);
+                BDConexion.Close();
+                return false;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                BDConexion.Close();
+                return false;
+            }
+
         }
     }
 }

@@ -64,7 +64,7 @@
             // 
             // acciones
             // 
-            this.acciones.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.acciones.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.acciones.Controls.Add(this.borrar);
             this.acciones.Controls.Add(this.insertarTitulo);
             this.acciones.Controls.Add(this.insertarParrafo);
@@ -137,6 +137,7 @@
             // Columna
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             resources.ApplyResources(this, "$this");
             this.Controls.Add(this.borrarColumna);
             this.Controls.Add(this.elemento_id);

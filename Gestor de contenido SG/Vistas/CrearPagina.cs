@@ -13,6 +13,9 @@ namespace Gestor_de_contenido_SG
 {
     public partial class CrearPagina : Form
     {
+        //variables globales
+        public static bool contieneCircuitos;
+
         public CrearPagina()
         {
             InitializeComponent();
@@ -57,7 +60,8 @@ namespace Gestor_de_contenido_SG
             }
             else
             {
-                MessageBox.Show("No existe ningun circuito todavia, asegurate de tener algun circuito antes de insertar una pagina");                
+                MessageBox.Show("No existe ningun circuito todavia, asegurate de tener algun circuito antes de insertar una pagina");
+                this.Close();
             }
             
         }
@@ -77,14 +81,23 @@ namespace Gestor_de_contenido_SG
                 circuito = null;
                 throw new Exception("Debes seleccionar a que circuito pertenece la pagina");
             }
-
-            //se busca en base al texto del elemento seleccionado de la lista de circuitos el id 
+           
+            //se busca el id del circuito al que pertenece en base al texto del elemento seleccionado de la lista de circuitos 
             ClaseCircuito ocircuito = BDCircuitos.buscarCircuitoPadre(circuito);
 
             int circuitoId = ocircuito.id;
 
-            //se crea la pagina con el titulo de la pagina y el id del circuito padre
-            Pagina.crearPagina(tituloPagina, circuitoId);
+            contieneCircuitos = BDCircuitos.contieneCircuitos(circuitoId);
+
+            if (contieneCircuitos)
+            {
+                throw new Exception("No puedes seleccionar un circuito que contenga circuitos, es decir que sea un circuito padre");
+            }
+            else
+            {
+                //se crea la pagina con el titulo de la pagina y el id del circuito padre
+                Pagina.crearPagina(tituloPagina, circuitoId);
+            }
 
             this.Close();
             Controlador.mostrarMenu();

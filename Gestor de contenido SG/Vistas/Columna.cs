@@ -19,6 +19,7 @@ namespace Gestor_de_contenido_SG
 {
     public partial class Columna : Form
     {
+        //variables globales
         public static ArrayList listaElementos = new ArrayList();
         private int altura;
         public static int espacioArriba;

@@ -138,6 +138,9 @@
   <data name="columna_id.Text" xml:space="preserve">
     <value>label1</value>
   </data>
+  <data name="columna_id.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="&gt;&gt;columna_id.Name" xml:space="preserve">
     <value>columna_id</value>
   </data>
@@ -437,6 +440,9 @@
   </data>
   <data name="elemento_id.Text" xml:space="preserve">
     <value>label1</value>
+  </data>
+  <data name="elemento_id.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="&gt;&gt;elemento_id.Name" xml:space="preserve">
     <value>elemento_id</value>

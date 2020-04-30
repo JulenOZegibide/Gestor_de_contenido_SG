@@ -48,6 +48,7 @@
             this.bloque_id.Size = new System.Drawing.Size(35, 13);
             this.bloque_id.TabIndex = 0;
             this.bloque_id.Text = "label1";
+            this.bloque_id.Visible = false;
             // 
             // nombre_columna
             // 
@@ -124,6 +125,7 @@
             // Bloque
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.ClientSize = new System.Drawing.Size(934, 450);
             this.Controls.Add(this.borrarBloque);
             this.Controls.Add(this.volver);
@@ -135,6 +137,7 @@
             this.Controls.Add(this.bloque_id);
             this.Name = "Bloque";
             this.Text = "Bloque";
+            this.Activated += new System.EventHandler(this.Bloque_Activated);
             this.Load += new System.EventHandler(this.Form2_Load);
             ((System.ComponentModel.ISupportInitialize)(this.volver)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.borrarBloque)).EndInit();

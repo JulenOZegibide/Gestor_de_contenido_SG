@@ -16,6 +16,7 @@ namespace Gestor_de_contenido_SG
 {
     public partial class Pagina : Form
     {
+        //variables globales
         public static ArrayList listaBloques = new ArrayList();
         public static ArrayList listaPaginas = new ArrayList();
         int altura = 0;
@@ -24,6 +25,8 @@ namespace Gestor_de_contenido_SG
         {
             InitializeComponent();
 
+            //Para evitar que el usuario de la aplicacion cambie el tamaño de la pestaña
+            this.FormBorderStyle = FormBorderStyle.None;
             WindowState = FormWindowState.Maximized;
 
             //se rellenan las etiquetas con el nombre y el id de la pagina
@@ -46,9 +49,7 @@ namespace Gestor_de_contenido_SG
                 ClasePagina opagina = new ClasePagina(tituloPagina, circuitoId);
 
                 BDPaginas.insertarPagina(opagina);
-                int paginaId = BDPaginas.buscarIdPagina(tituloPagina);
-
-                Controlador.mostrarPagina(paginaId, opagina);
+                //int paginaId = BDPaginas.buscarIdPagina(tituloPagina);
             }
         }
 
@@ -94,8 +95,35 @@ namespace Gestor_de_contenido_SG
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            
+        }
+
+        private void volver_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            Controlador.mostrarMenu();
+        }
+
+        private void borrarPagina_Click(object sender, EventArgs e)
+        {
+            DialogResult confirmar = MessageBox.Show("Ten cuidado, al borrar esta pagina borraras todos los bloques con sus respectivas columnas y elementos que contiene, estas seguro de querer borrar esta pagina", "Borrar", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+
+            if (confirmar == DialogResult.Yes)
+            {
+                BDPaginas.borrarPagina(pagina_id.Text);
+                this.Close();             
+            }
+        }
+
+        private void Pagina_Activated(object sender, EventArgs e)
+        {
             bloque_id.Visible = false;
             pagina_id.Visible = false;
+            altura = 0;
+
+            //limpiar la lista de bloques y los bloques que contiene la pagina para evitar repetidos
+            listaBloques.Clear();
+            contenedor.Controls.Clear();
 
             //se busca el id de bloque maximo en base de datos para la hora de crear un nuevo bloque dicho bloque lleve la etiqueta con el id correspondiente
             int idMaximo = BDBloques.buscarIdBloqueMax();
@@ -139,23 +167,6 @@ namespace Gestor_de_contenido_SG
                 listaBloques = new ArrayList();
             }
             bloque_id.Text = (idMaximo + 1).ToString();
-        }
-
-        private void volver_Click(object sender, EventArgs e)
-        {
-            this.Close();
-            Controlador.mostrarMenu();
-        }
-
-        private void borrarPagina_Click(object sender, EventArgs e)
-        {
-            DialogResult confirmar = MessageBox.Show("Ten cuidado, al borrar esta pagina borraras todos los bloques con sus respectivas columnas y elementos que contiene, estas seguro de querer borrar esta pagina", "Borrar", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-
-            if (confirmar == DialogResult.Yes)
-            {
-                BDPaginas.borrarPagina(pagina_id.Text);
-                this.Close();             
-            }
         }
     }
 }

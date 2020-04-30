@@ -39,32 +39,32 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(30, 25);
+            this.label1.Location = new System.Drawing.Point(29, 12);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(29, 13);
+            this.label1.Size = new System.Drawing.Size(33, 13);
             this.label1.TabIndex = 0;
-            this.label1.Text = "titulo";
+            this.label1.Text = "Titulo";
             // 
             // titulo_pagina
             // 
-            this.titulo_pagina.Location = new System.Drawing.Point(65, 22);
+            this.titulo_pagina.Location = new System.Drawing.Point(81, 9);
             this.titulo_pagina.Name = "titulo_pagina";
-            this.titulo_pagina.Size = new System.Drawing.Size(115, 20);
+            this.titulo_pagina.Size = new System.Drawing.Size(100, 20);
             this.titulo_pagina.TabIndex = 1;
             // 
             // lista_circuitos
             // 
             this.lista_circuitos.FormattingEnabled = true;
-            this.lista_circuitos.Location = new System.Drawing.Point(12, 66);
+            this.lista_circuitos.Location = new System.Drawing.Point(12, 40);
             this.lista_circuitos.Name = "lista_circuitos";
-            this.lista_circuitos.Size = new System.Drawing.Size(216, 95);
+            this.lista_circuitos.Size = new System.Drawing.Size(254, 238);
             this.lista_circuitos.TabIndex = 2;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(81, 167);
+            this.button1.Location = new System.Drawing.Point(100, 283);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.Size = new System.Drawing.Size(81, 23);
             this.button1.TabIndex = 3;
             this.button1.Text = "Crear pagina";
             this.button1.UseVisualStyleBackColor = true;
@@ -73,7 +73,7 @@
             // volver
             // 
             this.volver.Image = global::Gestor_de_contenido_SG.Properties.Resources._return;
-            this.volver.Location = new System.Drawing.Point(205, 17);
+            this.volver.Location = new System.Drawing.Point(243, 9);
             this.volver.Name = "volver";
             this.volver.Size = new System.Drawing.Size(23, 25);
             this.volver.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -85,7 +85,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(239, 211);
+            this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.ClientSize = new System.Drawing.Size(278, 318);
             this.Controls.Add(this.volver);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.lista_circuitos);

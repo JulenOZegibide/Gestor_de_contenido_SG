@@ -32,7 +32,9 @@
             this.CrearPaginatoolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.actualizar_pagina = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.logo = new System.Windows.Forms.PictureBox();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.logo)).BeginInit();
             this.SuspendLayout();
             // 
             // crearCircuitoToolStripMenuItem
@@ -58,6 +60,7 @@
             // 
             // menuStrip1
             // 
+            this.menuStrip1.BackColor = System.Drawing.SystemColors.Highlight;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.crearCircuitoToolStripMenuItem,
             this.CrearPaginatoolStripMenuItem1,
@@ -68,17 +71,30 @@
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
+            // logo
+            // 
+            this.logo.Image = global::Gestor_de_contenido_SG.Properties.Resources.logosg;
+            this.logo.Location = new System.Drawing.Point(234, 106);
+            this.logo.Name = "logo";
+            this.logo.Size = new System.Drawing.Size(283, 231);
+            this.logo.TabIndex = 1;
+            this.logo.TabStop = false;
+            // 
             // Menu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.ClientSize = new System.Drawing.Size(784, 450);
+            this.Controls.Add(this.logo);
             this.Controls.Add(this.menuStrip1);
             this.Name = "Menu";
             this.Text = "Menu";
+            this.Activated += new System.EventHandler(this.Menu_Activated);
             this.Load += new System.EventHandler(this.Menu_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.logo)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -90,5 +106,6 @@
         private System.Windows.Forms.ToolStripMenuItem CrearPaginatoolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem actualizar_pagina;
         private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.PictureBox logo;
     }
 }

@@ -134,6 +134,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
+            this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.ClientSize = new System.Drawing.Size(931, 334);
             this.Controls.Add(this.borrarPagina);
             this.Controls.Add(this.volver);
@@ -146,6 +147,7 @@
             this.Controls.Add(this.crear_bloque);
             this.Name = "Pagina";
             this.Text = "Pagina";
+            this.Activated += new System.EventHandler(this.Pagina_Activated);
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.volver)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.borrarPagina)).EndInit();
