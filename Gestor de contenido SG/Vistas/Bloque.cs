@@ -13,13 +13,14 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Gestor_de_contenido_SG
-{  
+{
     public partial class Bloque : Form
     {
         //variables globales
         public static ArrayList listaColumnas = new ArrayList();
-        private int altura = 50;      
+        private int altura = 50;
         private int contador;
+        private int anchoTotal = 0;
 
         public Bloque(string titulo)
         {
@@ -50,6 +51,7 @@ namespace Gestor_de_contenido_SG
             else
             {
                 crearColumna();
+                nombre_columna.Text = "";
             }
         }
 
@@ -76,19 +78,28 @@ namespace Gestor_de_contenido_SG
                     //se crea la columna, aparte de funciones necesarias para el correcto funcionamiento
                     Panel panel1 = new Panel();
 
-                    //regla de 3 para pasar de % a pixeles
-                    int anchoEnPixeles = (ocolumna.ancho * contenedor.Width) / 100;
+                    /*propiedades para posicionar las columnas en horizontal y no en vertical ESTA SIN TERMINAR
+                    if (anchoTotal + anchoEnPixeles < 1260)
+                    {
+                        anchoTotal += anchoEnPixeles;
+                        panel1.Left = anchoTotal;
+                    }
+                    else
+                    {
+
+                    }*/
+
+
 
                     //Propiedades que tendra la columna al ser creada
-                    panel1.BackColor = Color.WhiteSmoke;
                     panel1.BorderStyle = BorderStyle.FixedSingle;
                     panel1.Top = altura;
                     panel1.Name = "columna" + contador;
-                    panel1.Size = new Size(anchoEnPixeles, ocolumna.alto);
+                    panel1.Size = new Size(ocolumna.ancho, ocolumna.alto);
                     panel1.AutoSize = true;
-                    panel1.MaximumSize = new Size(contenedor.Width, 1500);
+                    panel1.MaximumSize = new Size(1260, 1500);
                     panel1.MinimumSize = new Size(200, 100);
-                    panel1.BackColor = Color.Transparent;               
+                    panel1.BackColor = Color.Transparent;
 
                     //caja de texto donde se guarda el nombre de la columna
                     Label nombre = new Label();
@@ -100,16 +111,8 @@ namespace Gestor_de_contenido_SG
 
                     panel1.Controls.Add(nombre);
 
-                    //crear objeto de la clase columna 
-                    ClaseColumna ocolumnaDesdeBD = new ClaseColumna(ocolumna.titulo, panel1.Width, Convert.ToInt16(bloque_id.Text), ocolumna.alto);
-
                     this.Controls.Add(panel1);
 
-                    //añade un evento cuando se hace click sobre una columna
-                    panel1.Click += delegate (object send, EventArgs ea) { Controlador.mostrarColumna(send, ea, ocolumna.titulo, panel1.Width,panel1.Height); Hide(); };
-                    panel1.MouseHover += delegate (object send, EventArgs ea) { nombre.Visible = true; panel1.BackColor = Color.LightGray; };
-                    panel1.MouseLeave += delegate (object send, EventArgs ea) { nombre.Visible = false; panel1.BackColor = Color.Transparent; };
-                    panel1.BringToFront();
                     contenedor.Controls.Add(panel1);
 
                     contador++;
@@ -136,22 +139,14 @@ namespace Gestor_de_contenido_SG
                                     var imageHeight = img.Height;
                                     var imageWidth = img.Width;
 
-                                    //regla de 3 para pasar de % a pixeles
-                                    int anchoEnPixelesImg = (oelemento.ancho * panel1.Width) / 100;
-
-                                    //regla de 3 para pasar la posicion de % a pixeles
-                                    int izquierdaPixelesImagen = (oelemento.espacio_izquierda * panel1.Width) / 100;
-                                    int arribaPixelesImagen = (oelemento.espacio_arriba * panel1.Height) / 100;
-
                                     //propiedades de la imagen
-                                    imagen.Top = arribaPixelesImagen;
-                                    imagen.Left = izquierdaPixelesImagen;
+                                    imagen.Top = oelemento.espacio_arriba;
+                                    imagen.Left = oelemento.espacio_izquierda;
                                     imagen.Name = oelemento.id.ToString();
                                     imagen.MaximumSize = new Size(panel1.Width, 500);
-                                    //imagen.AutoSize = true;
                                     imagen.Size = new Size(imageWidth, imageHeight);
                                     imagen.SizeMode = PictureBoxSizeMode.StretchImage;
-                                    imagen.Width = anchoEnPixelesImg;
+                                    imagen.Width = oelemento.ancho;
 
                                     panel1.Controls.Add(imagen);
 
@@ -162,23 +157,16 @@ namespace Gestor_de_contenido_SG
                                     PictureBox video = new PictureBox();
                                     video.Image = Image.FromFile(@"..\..\Imagenes\play.png");
 
-                                    //regla de 3 para pasar de % a pixeles
-                                    int anchoEnPixelesVideo = (oelemento.ancho * panel1.Width) / 100;
-
-                                    //regla de 3 para pasar la posicion de % a pixeles
-                                    int izquierdaPixelesVideo = (oelemento.espacio_izquierda * panel1.Width) / 100;
-                                    int arribaPixelesVideo = (oelemento.espacio_arriba * panel1.Height) / 100;
-
                                     //propiedades del video
-                                    video.Top = arribaPixelesVideo;
-                                    video.Left = izquierdaPixelesVideo;
+                                    video.Top = oelemento.espacio_arriba;
+                                    video.Left = oelemento.espacio_izquierda;
                                     video.Name = oelemento.id.ToString();
                                     video.BorderStyle = BorderStyle.FixedSingle;
                                     video.SizeMode = PictureBoxSizeMode.CenterImage;
                                     video.MaximumSize = new Size(panel1.Width, 500);
                                     video.MinimumSize = new Size(240, 135);
-                                    video.Width = anchoEnPixelesVideo;
-                                    video.Height = anchoEnPixelesVideo / 2;
+                                    video.Width = oelemento.ancho;
+                                    video.Height = oelemento.ancho / 2;
 
                                     panel1.Controls.Add(video);
 
@@ -189,21 +177,14 @@ namespace Gestor_de_contenido_SG
                                     Label parrafo = new Label();
                                     parrafo.Text = oelemento.contenido;
 
-                                    //regla de 3 para pasar de % a pixeles
-                                    int anchoEnPixelesParrafo = (oelemento.ancho * panel1.Width) / 100;
-
-                                    //regla de 3 para pasar la posicion de % a pixeles
-                                    int izquierdaPixelesParrafo = (oelemento.espacio_izquierda * panel1.Width) / 100;
-                                    int arribaPixelesParrafo = (oelemento.espacio_arriba * panel1.Height) / 100;
-
                                     //propiedades del parrafo
-                                    parrafo.Top = arribaPixelesParrafo;
-                                    parrafo.Left = izquierdaPixelesParrafo;
+                                    parrafo.Top = oelemento.espacio_arriba;
+                                    parrafo.Left = oelemento.espacio_izquierda;
                                     parrafo.Name = oelemento.id.ToString();
-                                    parrafo.MaximumSize = new Size(panel1.Width, 300);
+                                    parrafo.MaximumSize = new Size(oelemento.ancho, 300);
                                     parrafo.MinimumSize = new Size(10, 10);
-                                    parrafo.Width = anchoEnPixelesParrafo;
-                                    parrafo.Height = calcularAltura(parrafo);
+                                    parrafo.AutoSize = true;
+                                    parrafo.Width = oelemento.ancho;
 
                                     panel1.Controls.Add(parrafo);
 
@@ -214,22 +195,15 @@ namespace Gestor_de_contenido_SG
                                     Label titulo = new Label();
                                     titulo.Text = oelemento.contenido;
 
-                                    //regla de 3 para pasar el ancho de % a pixeles
-                                    int anchoEnPixelesTitulo = (oelemento.ancho * panel1.Width) / 100;
-
-                                    //regla de 3 para pasar la posicion de % a pixeles
-                                    int izquierdaPixelesTitulo = (oelemento.espacio_izquierda * panel1.Width) / 100;
-                                    int arribaPixelesTitulo = (oelemento.espacio_arriba * panel1.Height) / 100;
-
                                     //propiedades del titulo
-                                    titulo.Top = arribaPixelesTitulo;
-                                    titulo.Left = izquierdaPixelesTitulo;
+                                    titulo.Top = oelemento.espacio_arriba;
+                                    titulo.Left = oelemento.espacio_izquierda;
                                     titulo.Name = oelemento.id.ToString();
                                     titulo.AutoSize = true;
                                     titulo.Font = new Font("Arial", 16);
                                     titulo.MaximumSize = new Size(panel1.Width, 300);
                                     titulo.MinimumSize = new Size(10, 10);
-                                    titulo.Width = anchoEnPixelesTitulo;
+                                    titulo.Width = oelemento.ancho;
 
                                     panel1.Controls.Add(titulo);
 
@@ -244,6 +218,13 @@ namespace Gestor_de_contenido_SG
                         Columna.listaElementos = new ArrayList();
                     }
                     panel1.MinimumSize = new Size(200, panel1.Height);
+
+                    //añade un evento cuando se hace click sobre una columna
+                    panel1.Click += delegate (object send, EventArgs ea) { Controlador.mostrarColumna(send, ea, ocolumna.titulo, panel1.Width, panel1.Height); Hide(); };
+                    for (int x = 0; x < panel1.Controls.Count; x++)
+                    {
+                        panel1.Controls[x].Click += delegate (object send, EventArgs ea) { Controlador.mostrarColumna(send, ea, ocolumna.titulo, panel1.Width, panel1.Height); Hide(); };
+                    }
 
                     altura += panel1.Height + 20;
                 }
@@ -271,26 +252,24 @@ namespace Gestor_de_contenido_SG
             nombre.Text = nombre_columna.Text;
             nombre.AutoSize = true;
             nombre.Font = new Font("Arial", 22, FontStyle.Bold);
-            nombre.TextAlign = ContentAlignment.BottomLeft;
+            nombre.Location = new Point(30, 30);
+            nombre.Visible = false;
 
             panel1.Controls.Add(nombre);
 
             //Propiedades que tendra la columna al ser creada
-            panel1.BackColor = Color.WhiteSmoke;
+            panel1.BackColor = Color.Transparent;
             panel1.BorderStyle = BorderStyle.FixedSingle;
             panel1.Top = altura;
             panel1.Name = "columna" + contador;
             panel1.Size = new Size(200, 160);
             panel1.AutoSize = true;
             panel1.MaximumSize = new Size(contenedor.Width, 1500);
-            panel1.MinimumSize = new Size(200, 100);
-
-            //calcular ancho en porcentaje,usando la regla de 3
-            int ancho = (100 * panel1.Width) / contenedor.Width;
+            panel1.MinimumSize = new Size(200, 160);
 
             //crear objeto de la clase columna 
-            ClaseColumna ocolumna = new ClaseColumna(nombre.Text, ancho, Convert.ToInt16(bloque_id.Text), 100);
-            
+            ClaseColumna ocolumna = new ClaseColumna(nombre.Text, panel1.Width, Convert.ToInt16(bloque_id.Text), 160);
+
             this.Controls.Add(panel1);
 
             //añade un evento cuando se hace click sobre una columna

@@ -70,26 +70,22 @@ namespace Gestor_de_contenido_SG
                 nombre.Left = (this.Width - nombre.Width) / 2;
                 nombre.AutoSize = true;
 
-                Label id_bloque = new Label();
-                id_bloque.Text = bloque_id.Text;
-                id_bloque.Visible = false;
-
-                bloque.Controls.Add(nombre);
-                bloque.Controls.Add(id_bloque);
+                bloque.Controls.Add(nombre);               
 
                 bloque.BackColor = Color.FromArgb(255, 255, 255);
-                bloque.Width = contenedor.Width - 40;
+                bloque.Width = 1260;
                 bloque.Height = 300;
                 bloque.Top = Convert.ToInt16(altura);
+                bloque.Left = 7;
                 bloque.Click += delegate (object send, EventArgs ea) { Controlador.mostrarBloque(sender, e, nombre.Text); this.Hide(); };
                 contenedor.Controls.Add(bloque);
 
                 ClaseBloque obloque = new ClaseBloque(nombre.Text, Convert.ToInt16(pagina_id.Text));
-
-                bloque_id.Text = (Convert.ToInt16(bloque_id.Text) + 1).ToString();
+               
                 altura = altura + 305;
 
                 BDBloques.insertarBloque(obloque);
+                nombre_bloque.Text = "";
             }
         }
 
@@ -117,16 +113,12 @@ namespace Gestor_de_contenido_SG
 
         private void Pagina_Activated(object sender, EventArgs e)
         {
-            bloque_id.Visible = false;
             pagina_id.Visible = false;
             altura = 0;
 
             //limpiar la lista de bloques y los bloques que contiene la pagina para evitar repetidos
             listaBloques.Clear();
             contenedor.Controls.Clear();
-
-            //se busca el id de bloque maximo en base de datos para la hora de crear un nuevo bloque dicho bloque lleve la etiqueta con el id correspondiente
-            int idMaximo = BDBloques.buscarIdBloqueMax();
 
             //se rellena la lista de bloques desde base de datos
             listaBloques = BDBloques.buscarBloques(pagina_id.Text);
@@ -152,9 +144,10 @@ namespace Gestor_de_contenido_SG
                     bloque.Controls.Add(id_bloque);
 
                     bloque.BackColor = Color.FromArgb(255, 255, 255);
-                    bloque.Width = contenedor.Width - 40;
+                    bloque.Width = 1260;
                     bloque.Height = 300;
                     bloque.Top = Convert.ToInt16(altura);
+                    bloque.Left = 7;
                     bloque.Click += delegate (object send, EventArgs ea) { Controlador.mostrarBloque(sender, e, nombre.Text); this.Hide(); };
                     contenedor.Controls.Add(bloque);
 
@@ -166,7 +159,6 @@ namespace Gestor_de_contenido_SG
             {
                 listaBloques = new ArrayList();
             }
-            bloque_id.Text = (idMaximo + 1).ToString();
         }
     }
 }

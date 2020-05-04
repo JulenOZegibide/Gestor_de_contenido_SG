@@ -39,7 +39,6 @@
             this.insertarVideo = new System.Windows.Forms.Button();
             this.insertarImagen = new System.Windows.Forms.Button();
             this.volver = new System.Windows.Forms.PictureBox();
-            this.elemento_id = new System.Windows.Forms.Label();
             this.borrarColumna = new System.Windows.Forms.PictureBox();
             this.acciones.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.volver)).BeginInit();
@@ -121,11 +120,6 @@
             this.volver.TabStop = false;
             this.volver.Click += new System.EventHandler(this.volver_Click);
             // 
-            // elemento_id
-            // 
-            resources.ApplyResources(this.elemento_id, "elemento_id");
-            this.elemento_id.Name = "elemento_id";
-            // 
             // borrarColumna
             // 
             this.borrarColumna.Image = global::Gestor_de_contenido_SG.Properties.Resources.papelera;
@@ -140,7 +134,6 @@
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             resources.ApplyResources(this, "$this");
             this.Controls.Add(this.borrarColumna);
-            this.Controls.Add(this.elemento_id);
             this.Controls.Add(this.volver);
             this.Controls.Add(this.acciones);
             this.Controls.Add(this.contenedorColumna);
@@ -148,6 +141,7 @@
             this.Controls.Add(this.columna_id);
             this.Name = "Columna";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Activated += new System.EventHandler(this.Columna_Activated);
             this.Load += new System.EventHandler(this.Columna_Load);
             this.acciones.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.volver)).EndInit();
@@ -168,7 +162,6 @@
         private System.Windows.Forms.Button insertarVideo;
         private System.Windows.Forms.Button insertarImagen;
         private System.Windows.Forms.PictureBox volver;
-        private System.Windows.Forms.Label elemento_id;
         private System.Windows.Forms.Button borrar;
         private System.Windows.Forms.PictureBox borrarColumna;
     }

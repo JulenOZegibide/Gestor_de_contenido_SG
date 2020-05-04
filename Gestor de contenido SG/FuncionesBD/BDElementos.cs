@@ -44,54 +44,6 @@ namespace Gestor_de_contenido_SG.FuncionesBD
             BDConexion.Close();
         }
 
-        public static int buscarIdElementoMax()
-        {
-            Controlador.Conectar();
-            OleDbConnection BDConexion = Controlador.BDConexion;
-            BDConexion.Open();
-            try
-            {
-                string buscar = "SELECT MAX(ID) FROM ELEMENTOS";
-                OleDbCommand cmd = new OleDbCommand(buscar, BDConexion);
-
-                OleDbDataReader lector = cmd.ExecuteReader();
-                object[] objeto = new object[10];
-                bool read;
-                if (lector.Read())
-                {
-                    do
-                    {
-                        int NumberOfColums = lector.GetValues(objeto);
-
-                        int idMaximo = Convert.ToInt16(objeto[0]);
-
-                        Console.WriteLine();
-                        read = lector.Read();
-
-                        BDConexion.Close();
-                        return idMaximo;
-                    }
-                    while (read == true);
-                }
-                else
-                {
-                    BDConexion.Close();
-                    return 0;
-                }
-            }
-            catch (DBConcurrencyException ex)
-            {
-                MessageBox.Show("Error de concurrencia:\n" + ex.Message);
-                BDConexion.Close();
-                return 0;
-            }
-            catch (Exception ex)
-            {
-                BDConexion.Close();
-                return 0;
-            }
-        }
-
         public static ArrayList buscarElementos(string columna_id)
         {
             Controlador.Conectar();

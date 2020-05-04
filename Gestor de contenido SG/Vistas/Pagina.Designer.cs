@@ -29,14 +29,13 @@
         private void InitializeComponent()
         {
             this.crear_bloque = new System.Windows.Forms.Button();
-            this.bloque_id = new System.Windows.Forms.TextBox();
-            this.contenedor = new System.Windows.Forms.Panel();
             this.nombre_bloque = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.nombre_pagina = new System.Windows.Forms.Label();
-            this.pagina_id = new System.Windows.Forms.TextBox();
             this.volver = new System.Windows.Forms.PictureBox();
             this.borrarPagina = new System.Windows.Forms.PictureBox();
+            this.pagina_id = new System.Windows.Forms.Label();
+            this.contenedor = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.volver)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.borrarPagina)).BeginInit();
             this.SuspendLayout();
@@ -50,25 +49,6 @@
             this.crear_bloque.Text = "Crear Bloque";
             this.crear_bloque.UseVisualStyleBackColor = true;
             this.crear_bloque.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // bloque_id
-            // 
-            this.bloque_id.Location = new System.Drawing.Point(300, 6);
-            this.bloque_id.Name = "bloque_id";
-            this.bloque_id.Size = new System.Drawing.Size(24, 20);
-            this.bloque_id.TabIndex = 3;
-            this.bloque_id.Tag = "txt_nombre";
-            // 
-            // contenedor
-            // 
-            this.contenedor.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.contenedor.AutoScroll = true;
-            this.contenedor.Location = new System.Drawing.Point(15, 76);
-            this.contenedor.Name = "contenedor";
-            this.contenedor.Size = new System.Drawing.Size(900, 234);
-            this.contenedor.TabIndex = 4;
             // 
             // nombre_bloque
             // 
@@ -98,14 +78,6 @@
             this.nombre_pagina.TabIndex = 7;
             this.nombre_pagina.Text = "label3";
             // 
-            // pagina_id
-            // 
-            this.pagina_id.Location = new System.Drawing.Point(363, 6);
-            this.pagina_id.Name = "pagina_id";
-            this.pagina_id.Size = new System.Drawing.Size(24, 20);
-            this.pagina_id.TabIndex = 8;
-            this.pagina_id.Tag = "txt_nombre";
-            // 
             // volver
             // 
             this.volver.Image = global::Gestor_de_contenido_SG.Properties.Resources._return;
@@ -129,6 +101,26 @@
             this.borrarPagina.TabStop = false;
             this.borrarPagina.Click += new System.EventHandler(this.borrarPagina_Click);
             // 
+            // pagina_id
+            // 
+            this.pagina_id.AutoSize = true;
+            this.pagina_id.Location = new System.Drawing.Point(320, 12);
+            this.pagina_id.Name = "pagina_id";
+            this.pagina_id.Size = new System.Drawing.Size(35, 13);
+            this.pagina_id.TabIndex = 20;
+            this.pagina_id.Text = "label1";
+            // 
+            // contenedor
+            // 
+            this.contenedor.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.contenedor.AutoScroll = true;
+            this.contenedor.Location = new System.Drawing.Point(45, 58);
+            this.contenedor.Name = "contenedor";
+            this.contenedor.Size = new System.Drawing.Size(840, 264);
+            this.contenedor.TabIndex = 21;
+            // 
             // Pagina
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -136,14 +128,13 @@
             this.AutoSize = true;
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.ClientSize = new System.Drawing.Size(931, 334);
+            this.Controls.Add(this.contenedor);
+            this.Controls.Add(this.pagina_id);
             this.Controls.Add(this.borrarPagina);
             this.Controls.Add(this.volver);
-            this.Controls.Add(this.pagina_id);
             this.Controls.Add(this.nombre_pagina);
             this.Controls.Add(this.nombre_bloque);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.contenedor);
-            this.Controls.Add(this.bloque_id);
             this.Controls.Add(this.crear_bloque);
             this.Name = "Pagina";
             this.Text = "Pagina";
@@ -159,14 +150,13 @@
         #endregion
 
         private System.Windows.Forms.Button crear_bloque;
-        private System.Windows.Forms.TextBox bloque_id;
-        private System.Windows.Forms.Panel contenedor;
         private System.Windows.Forms.TextBox nombre_bloque;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label nombre_pagina;
-        private System.Windows.Forms.TextBox pagina_id;
         private System.Windows.Forms.PictureBox volver;
         private System.Windows.Forms.PictureBox borrarPagina;
+        private System.Windows.Forms.Label pagina_id;
+        private System.Windows.Forms.Panel contenedor;
     }
 }
 

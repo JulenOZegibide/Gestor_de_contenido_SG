@@ -74,7 +74,7 @@
             // logo
             // 
             this.logo.Image = global::Gestor_de_contenido_SG.Properties.Resources.logosg;
-            this.logo.Location = new System.Drawing.Point(234, 106);
+            this.logo.Location = new System.Drawing.Point(243, 79);
             this.logo.Name = "logo";
             this.logo.Size = new System.Drawing.Size(283, 231);
             this.logo.TabIndex = 1;
