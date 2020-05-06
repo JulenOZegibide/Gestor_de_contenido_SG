@@ -64,26 +64,33 @@ namespace Gestor_de_contenido_SG
             Vertical
         }
 
+        //primera parte de la funcion para que un elemento se pueda mover
         public void controlMovible(Control control)
         {
             controlMovible(control, Direction.Any);
         }
 
+        //segunda parte de la funcion para que un elemento se pueda mover
         public void controlMovible(Control control, Direction direction)
         {
             controlMovible(control, control, direction);
         }
 
+        //tercera parte de la funcion para que un elemento se pueda mover
         public void controlMovible(Control control, Control container, Direction direction)
         {
             bool Dragging = false;
             Point DragStart = Point.Empty;
+
+            //funcion para cuando clickas sobre el elemento para modificar la posicion del elemento
             control.MouseDown += delegate (object sender, MouseEventArgs e)
             {
                 Dragging = true;
                 DragStart = new Point(e.X, e.Y);
                 control.Capture = true;
             };
+
+            //funcion para cuando se deja de clickar sobre el elemento para modificar la posicion del elemento
             control.MouseUp += delegate (object sender, MouseEventArgs e)
             {
                 Dragging = false;
@@ -91,6 +98,8 @@ namespace Gestor_de_contenido_SG
 
                 BDElementos.actualizarPosicion(container.Left, container.Top, Convert.ToInt16(container.Name));
             };
+
+            //funcion que al estar clickando permite modificar la posicion del elemento
             control.MouseMove += delegate (object sender, MouseEventArgs e)
             {
                 //metodo para que el elemento no pueda sobrepasar el ancho del contenedor de la columna
@@ -108,20 +117,25 @@ namespace Gestor_de_contenido_SG
             };
         }
 
+        //funcion para poder cambiar la altura de la columna
         public void cambiarAlto(PictureBox bordeInferior, Panel columna)
         {
             bool aumentarAlto = false;
 
+            //funcion para cuando clickas sobre el borde inferior para modificar la altura de la columna
             bordeInferior.MouseDown += delegate (object sender, MouseEventArgs e)
             {
                 aumentarAlto = true;
             };
+
+            //funcion para cuando se deja de clickar sobre el el borde inferior para modificar la altura de la columna
             bordeInferior.MouseUp += delegate (object sender, MouseEventArgs e)
             {
                 aumentarAlto = false;
-                //columna.AutoSize = true;
                 BDColumnas.actualizarAlto(columna.Height, Convert.ToInt16(columna_id.Text));
             };
+
+            //funcion que al estar clickando permite modificar la altura de la columna
             bordeInferior.MouseMove += delegate (object sender, MouseEventArgs e)
             {
                 if (aumentarAlto)
@@ -132,21 +146,27 @@ namespace Gestor_de_contenido_SG
             };
         }
 
+        //funcion para poder cambiar el ancho de la columna
         public void cambiarAncho(PictureBox bordeDerecho, Panel columna)
         {
             bool aumentarAncho = false;
 
+            //funcion para cuando clickas sobre el borde derecho para modificar el ancho de la columna
             bordeDerecho.MouseDown += delegate (object sender, MouseEventArgs e)
             {
                 aumentarAncho = true;
                 //columna.AutoSize = true;
             };
+
+            //funcion para cuando se deja de clickar sobre el el borde derecho para modificar el ancho de la columna
             bordeDerecho.MouseUp += delegate (object sender, MouseEventArgs e)
             {
                 aumentarAncho = false;
 
                 BDColumnas.actualizarAncho(columna.Width, Convert.ToInt16(columna_id.Text));
             };
+
+            //funcion que al estar clickando permite modificar el ancho de la columna
             bordeDerecho.MouseMove += delegate (object sender, MouseEventArgs e)
             {
                 if (aumentarAncho)
@@ -156,7 +176,8 @@ namespace Gestor_de_contenido_SG
                 }
             };
         }
-        //funcion para cuando clickas en el lateral para modificar el ancho de la columna
+
+        //funcion para cuando clickas en la esquina inferior para modificar el tamaño del elemento
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e, Control elemento)
         {
             elemento.MaximumSize = new Size(1260, 300);
@@ -164,7 +185,7 @@ namespace Gestor_de_contenido_SG
             allowResize = true;
         }
 
-        //funcion para cuando se deja de clickar en el lateral para modificar el ancho de la columna
+        //funcion para cuando se deja de clickar en la esquina inferior para modificar el tamaño del elemento
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e, Control elemento, ClaseElemento oelemento)
         {
             allowResize = false;
@@ -173,17 +194,11 @@ namespace Gestor_de_contenido_SG
             BDElementos.actualizarAncho(elemento.Width, Convert.ToInt16(elemento.Name));
         }
 
-        //funcion que al estar clickando permite modificar el ancho de la columna
+        //funcion que al estar clickando permite modificar el tamaño del elemento
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e, Control elemento, PictureBox pictureBox1)
         {
-            /*elemento = (Control)sender;
-            Rectangle panelcontenedor = elemento.Parent.ClientRectangle;*/
-
             if (allowResize)
             {
-                //elemento.Height = pictureBox1.Top + e.Y;
-                //elemento.Width = Math.Min(Math.Max(0, e.X + pictureBox1.Left + e.X), panelcontenedor.Right - pictureBox1.Width);
-
                 elemento.Width = pictureBox1.Left + e.X;
                 elemento.Height = pictureBox1.Top + e.Y;
 
@@ -193,7 +208,7 @@ namespace Gestor_de_contenido_SG
 
         private void Columna_Load(object sender, EventArgs e)
         {
-            
+
         }
 
         private void crearBarrasDeRedimension()
@@ -247,19 +262,37 @@ namespace Gestor_de_contenido_SG
                             var imageHeight = img.Height;
                             var imageWidth = img.Width;
 
+                            /*Bitmap myImg = new Bitmap(Image.FromFile(@"..\..\ImagenesBD\\" + oelemento.contenido));
+                            int getWidth = myImg.Width;
+                            int getHeight = myImg.Height;
+                            double ratio = 0;
+                            if (getWidth > getHeight)
+                            {
+                                ratio = getWidth / 400;
+                                getWidth = 400;
+                                getHeight = (int)(getHeight / ratio);
+                            }
+                            else
+                            {
+                                ratio = getHeight / 400;
+                                getHeight = 400;
+                                getWidth = (int)(getWidth / ratio);
+                            }*/
+
                             //propiedades de la imagen
                             imagen.Top = oelemento.espacio_arriba;
                             imagen.Left = oelemento.espacio_izquierda;
                             imagen.Name = oelemento.id.ToString();
                             imagen.BorderStyle = BorderStyle.FixedSingle;
-                            //imagen.MaximumSize = new Size(contenedorColumna.Width, contenedorColumna.Height);
-                            //imagen.MinimumSize = new Size(10, 10);
-                            imagen.MaximumSize = new Size(oelemento.ancho, contenedorColumna.Height);
-                            imagen.MinimumSize = new Size(oelemento.ancho, 10);
-                            //imagen.Size = new Size(imageWidth, imageHeight);
+                            imagen.MaximumSize = new Size(contenedorColumna.Width, contenedorColumna.Height);
+                            imagen.MinimumSize = new Size(10, 10);
+                            //imagen.MaximumSize = new Size(oelemento.ancho, contenedorColumna.Height);
+                            //imagen.MinimumSize = new Size(oelemento.ancho, 10);
+                            imagen.Size = new Size(imageWidth, imageHeight);
+                            //imagen.Size = new Size(getWidth, getHeight);
                             imagen.SizeMode = PictureBoxSizeMode.StretchImage;
-                            imagen.AutoSize = false;
-                            //imagen.Width = oelemento.ancho;
+                            //imagen.AutoSize = true;
+                            imagen.Width = oelemento.ancho;
 
                             //elemento para poder cambiar el tamaño de la imagen
                             PictureBox pictureBox1 = new PictureBox();
@@ -402,10 +435,7 @@ namespace Gestor_de_contenido_SG
             dialogoBuscarArchivo.InitialDirectory = "c:\\";
             dialogoBuscarArchivo.Filter = "Image Files(*.jpg; *.jpeg; *.gif; *.png; *.bmp)|*.jpg; *.jpeg; *.gif; *.png; *.bmp";
 
-            //el ShowDialog() muestra el explorador de archivos para que elijas tu archivo. 
-            //Cuando le das click a "Aceptar" se devuelve DialogResult.OK 
-            //y si das click a "Cancelar" se devuelve una DialogResult.Cancel
-            //Si fue un OK, entonces suponemos que hay un archivo. Intentamos abrirlo
+            //el ShowDialog() muestra el explorador de archivos para que elijas tu archivo. Si se hace click en Aceptar , se abre el archivo
             if (dialogoBuscarArchivo.ShowDialog() == DialogResult.OK)
             {
                 Bitmap img = new Bitmap(dialogoBuscarArchivo.FileName);
@@ -457,6 +487,7 @@ namespace Gestor_de_contenido_SG
                 Label parrafo = new Label();
 
                 //propiedades del parrafo
+                parrafo.Width = 300;
                 parrafo.AutoSize = true;
 
                 //Añadir elemento a la base de datos
@@ -489,12 +520,13 @@ namespace Gestor_de_contenido_SG
         }
 
         private void borrar_Click(object sender, EventArgs e)
-        {          
+        {
+            //si el booleano posibleBorrar es igual a true añade el evento click para poder borrar
             if (posibleBorrar)
             {
                 posibleBorrar = false;
                 this.Cursor = Cursors.Hand;
-               
+
                 for (int x = 2; x < contenedorColumna.Controls.Count; x++)
                 {
                     int id = Convert.ToInt16(contenedorColumna.Controls[x].Name);
@@ -513,21 +545,23 @@ namespace Gestor_de_contenido_SG
         {
             this.Cursor = Cursors.Default;
             posibleBorrar = true;
-            MessageBox.Show(id.ToString());
 
+            //una vez haber elegido que elemento se va a borrar se elimina el evento click llamando al metodo borrarEventoClick
             for (int x = 0; x < contenedorColumna.Controls.Count; x++)
             {
                 borrarEventoClick(contenedorColumna.Controls[x]);
             }
 
+            //ventana para confirmar que se quiere borrar el elemento
             DialogResult confirmar = MessageBox.Show("El elemento se borrara para siempre, estas seguro de que quieres eliminar este elemento", "Borrar", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
 
+            //si la respuesta a confirmar es que si se llamara al metodo para eliminar el elemento de base de datos
             if (confirmar == DialogResult.Yes)
             {
                 BDElementos.borrarElemento(id);
                 contenedorColumna.Controls.Clear();
                 Columna_Activated(sender, e);
-            }          
+            }
         }
 
         private void borrarEventoClick(Control elemento)
@@ -543,13 +577,15 @@ namespace Gestor_de_contenido_SG
 
         private void borrarColumna_Click(object sender, EventArgs e)
         {
+            //ventana para confirmar que se quiere borrar la columna
             DialogResult confirmar = MessageBox.Show("Ten cuidado, al borrar esta columna borraras todos los elementos que contiene tambien, estas seguro de querer borrar esta columna", "Borrar", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
 
+            //si la respuesta a confirmar es que si se borrara la columna de base de datos
             if (confirmar == DialogResult.Yes)
             {
                 BDColumnas.borrarColumna(columna_id.Text);
-                this.Close();               
-            }            
+                this.Close();
+            }
         }
     }
 }

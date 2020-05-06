@@ -45,6 +45,7 @@ namespace Gestor_de_contenido_SG
 
         private void crear_columna_Click(object sender, EventArgs e)
         {
+            //si el campo nombre_columna no esta vacio se creara la columna
             if (String.IsNullOrEmpty(nombre_columna.Text) || String.IsNullOrWhiteSpace(nombre_columna.Text))
             {
                 MessageBox.Show("Introduce un nombre valido");
@@ -63,7 +64,15 @@ namespace Gestor_de_contenido_SG
 
         public void pintarBloques()
         {
+            //variables locales para el posicionamiento de las columnas
             altura = 0;
+            anchoTotal = 0;
+
+            //esconder la barra de scroll para que no estorbe
+            contenedor.AutoScroll = false;
+            contenedor.AutoScrollPosition = new Point(0, 0);
+            contenedor.VerticalScroll.Maximum = 0;
+            contenedor.AutoScroll = true;
 
             //limpiar la lista de columnas y las columnas que contiene el bloque para evitar repetidos
             listaColumnas.Clear();
@@ -79,7 +88,7 @@ namespace Gestor_de_contenido_SG
                     //se crea la columna, aparte de funciones necesarias para el correcto funcionamiento
                     Panel panel1 = new Panel();
 
-                    //propiedades para posicionar las columnas en horizontal y no en vertical ESTA SIN TERMINAR
+                    //propiedades para posicionar las columnas en horizontal
                     if (anchoTotal + ocolumna.ancho < 1260)
                     {
                         panel1.Left = anchoTotal;
@@ -102,7 +111,6 @@ namespace Gestor_de_contenido_SG
 
                     //Propiedades que tendra la columna al ser creada
                     panel1.BorderStyle = BorderStyle.FixedSingle;
-                    //panel1.Top = altura;
                     panel1.Name = "columna" + contador;
                     panel1.Size = new Size(ocolumna.ancho, ocolumna.alto);
                     panel1.MaximumSize = new Size(1260, 570);
@@ -151,7 +159,7 @@ namespace Gestor_de_contenido_SG
                                     imagen.Top = oelemento.espacio_arriba;
                                     imagen.Left = oelemento.espacio_izquierda;
                                     imagen.Name = oelemento.id.ToString();
-                                    imagen.MaximumSize = new Size(panel1.Width, 500);
+                                    imagen.MaximumSize = new Size(oelemento.ancho, 500);
                                     imagen.Size = new Size(imageWidth, imageHeight);
                                     imagen.SizeMode = PictureBoxSizeMode.StretchImage;
                                     imagen.Width = oelemento.ancho;
@@ -233,8 +241,6 @@ namespace Gestor_de_contenido_SG
                     {
                         panel1.Controls[x].Click += delegate (object send, EventArgs ea) { Controlador.mostrarColumna(send, ea, ocolumna.titulo, panel1.Width, panel1.Height); Hide(); };
                     }
-
-                    //altura += panel1.Height + 20;
                 }
                 listaColumnas.Clear();
             }
@@ -242,12 +248,6 @@ namespace Gestor_de_contenido_SG
             {
                 listaColumnas = new ArrayList();
             }
-        }
-
-        public int calcularAltura(Label texto)
-        {
-            Graphics g = texto.CreateGraphics();
-            return Convert.ToInt16(g.MeasureString(texto.Text, texto.Font).Width);
         }
 
         private void crearColumna()
@@ -300,8 +300,10 @@ namespace Gestor_de_contenido_SG
 
         private void borrarBloque_Click(object sender, EventArgs e)
         {
+            //ventana para confirmar que se quiere borrar el bloque
             DialogResult confirmar = MessageBox.Show("Ten cuidado, al borrar este bloque borraras todas las columnas con sus respectivos elementos que contiene, estas seguro de querer borrar este bloque", "Borrar", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
 
+            //si a la ventana de confirmar se le responde con un si se borrara el bloque de base de datos
             if (confirmar == DialogResult.Yes)
             {
                 BDBloques.borrarBloque(bloque_id.Text);

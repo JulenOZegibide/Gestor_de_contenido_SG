@@ -16,6 +16,9 @@ namespace Gestor_de_contenido_SG
         public Menu()
         {
             InitializeComponent();
+
+            //Para evitar que el usuario de la aplicacion cambie el tamaño de la pestaña
+            this.FormBorderStyle = FormBorderStyle.None;
         }
 
         private void actualizarPaginaToolStripMenuItem_Click(object sender, EventArgs e)
@@ -58,6 +61,8 @@ namespace Gestor_de_contenido_SG
                     pagina.Text = opagina.titulo;
                     pagina.BackColor = Color.White;
                     pagina.Dock = DockStyle.Left;
+                    pagina.Font = new Font("Segoe UI", 9);
+                    pagina.Width = 140;
 
                     //funcion que se llama al clickar encima de una pagina de dicho menu
                     pagina.Click += delegate (object send, EventArgs ea) { Controlador.mostrarPagina(opagina.id, opagina); this.Hide(); };
@@ -65,6 +70,11 @@ namespace Gestor_de_contenido_SG
                     actualizar_pagina.DropDownItems.Add(pagina);
                 }                
             }
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

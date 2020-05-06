@@ -14,21 +14,22 @@ namespace Gestor_de_contenido_SG
 {
     public partial class CrearPagina : Form
     {
-        //variables globales
-
-
         public CrearPagina()
         {
             InitializeComponent();
 
             //funcion que se llama al cerrar la ventana
             this.FormClosing += new FormClosingEventHandler(Controlador.cerrarPaginaActual);
+
+            //Para evitar que el usuario de la aplicacion cambie el tamaño de la pestaña
+            this.FormBorderStyle = FormBorderStyle.None;
         }
 
         public void crearPagina_Load(object sender, EventArgs e)
         {
             //se rellena la lista de circuitos desde base de datos
             Circuito.listaCircuitos = BDCircuitos.buscarCircuitos();
+
             //si la lista de bloques no esta vacia se recorre dicha lista y se pintan los diferentes circuitos en la lista de elementos
             if (Circuito.listaCircuitos != null)
             {
@@ -89,19 +90,25 @@ namespace Gestor_de_contenido_SG
 
         private void BuscarHijos(string nombre)
         {
+            //se guarda la posicion para a la hora de insertar los circuitos hijos se coloquen justo detras del circuito padre
             int posicion = lista_circuitos.SelectedIndex;
 
+            //se busca el circuito padre
             Circuito.ocircuitoPadre = BDCircuitos.buscarCircuitoPadre(nombre);
 
+            //si existe el circuito padre se rellenara la lista sino no hara nada
             if (Circuito.ocircuitoPadre != null)
             {
+                //se guarda el id del padre y se rellena una lista con todos los circuitos hijos de ese padre
                 int idPadre = Circuito.ocircuitoPadre.id;
                 Circuito.circuitosHijos = BDCircuitos.buscarCircuitosHijos(idPadre);
 
+                //si la lista de circuitos hijos no esta vacia se recorrera para rellenar el menu de seleccion de circuito
                 if (Circuito.circuitosHijos != null)
                 {
                     foreach (ClaseCircuito ocircuito in Circuito.circuitosHijos)
                     {
+                        //funcion para evitar repetidos
                         for (int x = lista_circuitos.Items.Count - 1; x >= 0; --x)
                         {
                             string removelistitem = ocircuito.titulo;
@@ -110,7 +117,10 @@ namespace Gestor_de_contenido_SG
                                 lista_circuitos.Items.RemoveAt(x);
                             }
                         }
+                        //se busca si el circuito que se va a insertar al menu tiene hijos
                         Circuito.contieneCircuitos = BDCircuitos.contieneCircuitos(ocircuito.id);
+
+                        //si el circuito que se va a insertar tiene hijos se insertara con un " >" por detras sino no
                         if (Circuito.contieneCircuitos)
                         {
                             int nivel = ocircuito.nivel;

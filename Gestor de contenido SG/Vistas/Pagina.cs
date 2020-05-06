@@ -49,7 +49,6 @@ namespace Gestor_de_contenido_SG
                 ClasePagina opagina = new ClasePagina(tituloPagina, circuitoId);
 
                 BDPaginas.insertarPagina(opagina);
-                //int paginaId = BDPaginas.buscarIdPagina(tituloPagina);
             }
         }
 
@@ -66,8 +65,9 @@ namespace Gestor_de_contenido_SG
 
                 Label nombre = new Label();
                 nombre.Text = nombre_bloque.Text;
-                nombre.Font = new Font("Arial", 24, FontStyle.Bold);
-                nombre.Left = (this.Width - nombre.Width) / 2;
+                nombre.Font = new Font("Arial", 34, FontStyle.Bold);
+                nombre.Left = 540;
+                nombre.Top = 120;
                 nombre.AutoSize = true;
 
                 bloque.Controls.Add(nombre);               
@@ -102,8 +102,10 @@ namespace Gestor_de_contenido_SG
 
         private void borrarPagina_Click(object sender, EventArgs e)
         {
+            //ventana para confirmar que quieres borrar la pagina
             DialogResult confirmar = MessageBox.Show("Ten cuidado, al borrar esta pagina borraras todos los bloques con sus respectivas columnas y elementos que contiene, estas seguro de querer borrar esta pagina", "Borrar", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
 
+            //si a la ventana de confirmar se le ha respondido con un si se borrara la pagina de base de datos
             if (confirmar == DialogResult.Yes)
             {
                 BDPaginas.borrarPagina(pagina_id.Text);
@@ -113,8 +115,17 @@ namespace Gestor_de_contenido_SG
 
         private void Pagina_Activated(object sender, EventArgs e)
         {
+            //ocultar el campo que contiene el id de la pagina
             pagina_id.Visible = false;
+
+            //variable local de altura para el posicionamiento de los bloques
             altura = 0;
+
+            //esconder la barra de scroll para que no estorbe
+            contenedor.AutoScroll = false;
+            contenedor.AutoScrollPosition = new Point(0, 0);
+            contenedor.VerticalScroll.Maximum = 0;
+            contenedor.AutoScroll = true;
 
             //limpiar la lista de bloques y los bloques que contiene la pagina para evitar repetidos
             listaBloques.Clear();
@@ -132,8 +143,9 @@ namespace Gestor_de_contenido_SG
 
                     Label nombre = new Label();
                     nombre.Text = obloque.titulo;
-                    nombre.Font = new Font("Arial", 24, FontStyle.Bold);
-                    nombre.Left = (this.Width - nombre.Width) / 2;
+                    nombre.Font = new Font("Arial", 34, FontStyle.Bold);
+                    nombre.Left = 540;
+                    nombre.Top = 120;
                     nombre.AutoSize = true;
 
                     Label id_bloque = new Label();
