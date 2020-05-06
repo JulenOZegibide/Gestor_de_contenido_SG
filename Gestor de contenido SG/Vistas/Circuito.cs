@@ -17,6 +17,9 @@ namespace Gestor_de_contenido_SG
     public partial class Circuito : Form
     {
         public static ArrayList listaCircuitos = new ArrayList();
+        public static ArrayList circuitosHijos = new ArrayList();
+        public static bool contieneCircuitos;
+        public static ClaseCircuito ocircuitoPadre;
 
         public Circuito()
         {
@@ -40,7 +43,7 @@ namespace Gestor_de_contenido_SG
                 circuito = null;
                 throw new Exception("Debes seleccionar a que circuito pertenece o si es un circuito padre");
             }
-            
+
             string titulo = titulo_circuito.Text;
 
             int nivel, padre;
@@ -60,15 +63,6 @@ namespace Gestor_de_contenido_SG
 
                     nivel = ocircuito.nivel + 1;
                     padre = ocircuito.id;
-                    /*if(ocircuito != null)
-                    {
-                        nivel = ocircuito.nivel + 1;
-                        padre = ocircuito.id;
-                    }
-                    else
-                    {
-                        MessageBox.Show("Ha habido un error al buscar el circuito padre");
-                    }*/
                     break;
             }
 
@@ -97,30 +91,96 @@ namespace Gestor_de_contenido_SG
             {
                 foreach (ClaseCircuito ocircuito in listaCircuitos)
                 {
-                    int nivel = ocircuito.nivel;
-
-                    //dependiendo de a que nivel esten se les pondra una separacion para poder diferenciar a que altura estan
-                    switch (nivel)
+                    if (ocircuito.padre == 0)
                     {
-                        case 1:
-                            lista_circuitos.Items.Add(ocircuito.titulo);
-                            break;
-                        case 2:
-                            lista_circuitos.Items.Add("  " + ocircuito.titulo);
-                            break;
-                        case 3:
-                            lista_circuitos.Items.Add("    " + ocircuito.titulo);
-                            break;
-                        case 4:
-                            lista_circuitos.Items.Add("      " + ocircuito.titulo);
-                            break;
-                        case 5:
-                            lista_circuitos.Items.Add("        " + ocircuito.titulo);
-                            break;
+                        lista_circuitos.Items.Add(ocircuito.titulo + " >");
                     }
-                    lista_circuitos.Sorted = true;                   
                 }
                 listaCircuitos.Clear();
+                lista_circuitos.SelectedValueChanged += delegate (object send, EventArgs ea) { string circuito = lista_circuitos.SelectedItem.ToString(); circuito = circuito.Replace(" >", ""); circuito = circuito.Replace(" ", ""); BuscarHijos(circuito); };
+            }
+        }
+
+        private void BuscarHijos(string nombre)
+        {
+            int posicion = lista_circuitos.SelectedIndex;
+
+            ocircuitoPadre = BDCircuitos.buscarCircuitoPadre(nombre);
+
+            if (ocircuitoPadre != null)
+            {
+                int idPadre = ocircuitoPadre.id;
+                circuitosHijos = BDCircuitos.buscarCircuitosHijos(idPadre);
+
+                if (circuitosHijos != null)
+                {
+                    foreach (ClaseCircuito ocircuito in circuitosHijos)
+                    {
+                        for (int x = lista_circuitos.Items.Count - 1; x >= 0; --x)
+                        {
+                            string removelistitem = ocircuito.titulo;
+                            if (lista_circuitos.Items[x].ToString().Contains(removelistitem))
+                            {
+                                lista_circuitos.Items.RemoveAt(x);
+                            }
+                        }
+                        contieneCircuitos = BDCircuitos.contieneCircuitos(ocircuito.id);
+                        if (contieneCircuitos)
+                        {
+                            int nivel = ocircuito.nivel;
+
+                            //dependiendo de a que nivel esten se les pondra una separacion para poder diferenciar a que altura estan
+                            switch (nivel)
+                            {
+                                case 1:
+                                    lista_circuitos.Items.Add(ocircuito.titulo + " >");
+                                    break;
+                                case 2:
+                                    lista_circuitos.Items.Insert(posicion + 1, "  " + ocircuito.titulo + " >");
+                                    break;
+                                case 3:
+                                    lista_circuitos.Items.Insert(posicion + 1, "    " + ocircuito.titulo + " >");
+                                    break;
+                                case 4:
+                                    lista_circuitos.Items.Insert(posicion + 1, "      " + ocircuito.titulo + " >");
+                                    break;
+                                case 5:
+                                    lista_circuitos.Items.Insert(posicion + 1, "        " + ocircuito.titulo + " >");
+                                    break;
+                            }
+                        }
+                        else
+                        {
+                            int nivel = ocircuito.nivel;
+
+                            //dependiendo de a que nivel esten se les pondra una separacion para poder diferenciar a que altura estan
+                            switch (nivel)
+                            {
+                                case 1:
+                                    lista_circuitos.Items.Insert(posicion + 1, ocircuito.titulo);
+                                    break;
+                                case 2:
+                                    lista_circuitos.Items.Insert(posicion + 1, "  " + ocircuito.titulo);
+                                    break;
+                                case 3:
+                                    lista_circuitos.Items.Insert(posicion + 1, "    " + ocircuito.titulo);
+                                    break;
+                                case 4:
+                                    lista_circuitos.Items.Insert(posicion + 1, "      " + ocircuito.titulo);
+                                    break;
+                                case 5:
+                                    lista_circuitos.Items.Insert(posicion + 1, "        " + ocircuito.titulo);
+                                    break;
+                            }
+                        }
+                    }
+                    circuitosHijos.Clear();
+                }
+                else
+                {
+                    circuitosHijos = new ArrayList();
+                }
+                circuitosHijos.Clear();
             }
         }
 

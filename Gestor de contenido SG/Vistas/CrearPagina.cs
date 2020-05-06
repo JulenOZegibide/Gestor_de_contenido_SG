@@ -1,5 +1,6 @@
 ﻿using Gestor_de_contenido_SG.FuncionesBD;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -14,7 +15,7 @@ namespace Gestor_de_contenido_SG
     public partial class CrearPagina : Form
     {
         //variables globales
-        public static bool contieneCircuitos;
+
 
         public CrearPagina()
         {
@@ -28,35 +29,18 @@ namespace Gestor_de_contenido_SG
         {
             //se rellena la lista de circuitos desde base de datos
             Circuito.listaCircuitos = BDCircuitos.buscarCircuitos();
-            //si la lista de circuitos no esta vacia se recorre dicha lista y se pintan los diferentes bloques en la pagina
+            //si la lista de bloques no esta vacia se recorre dicha lista y se pintan los diferentes circuitos en la lista de elementos
             if (Circuito.listaCircuitos != null)
             {
                 foreach (ClaseCircuito ocircuito in Circuito.listaCircuitos)
                 {
-                    int nivel = ocircuito.nivel;
-
-                    //dependiendo de a que nivel esten se les pondra una separacion para poder diferenciar a que altura estan
-                    switch (nivel)
+                    if (ocircuito.padre == 0)
                     {
-                        case 1:
-                            lista_circuitos.Items.Add(ocircuito.titulo);
-                            break;
-                        case 2:
-                            lista_circuitos.Items.Add("  " + ocircuito.titulo);
-                            break;
-                        case 3:
-                            lista_circuitos.Items.Add("    " + ocircuito.titulo);
-                            break;
-                        case 4:
-                            lista_circuitos.Items.Add("      " + ocircuito.titulo);
-                            break;
-                        case 5:
-                            lista_circuitos.Items.Add("        " + ocircuito.titulo);
-                            break;
+                        lista_circuitos.Items.Add(ocircuito.titulo + " >");
                     }
-                    lista_circuitos.Sorted = true;                  
                 }
                 Circuito.listaCircuitos.Clear();
+                lista_circuitos.SelectedValueChanged += delegate (object send, EventArgs ea) { string circuito = lista_circuitos.SelectedItem.ToString(); circuito = circuito.Replace(" >", ""); circuito = circuito.Replace(" ", ""); BuscarHijos(circuito); };
             }
             else
             {
@@ -87,9 +71,9 @@ namespace Gestor_de_contenido_SG
 
             int circuitoId = ocircuito.id;
 
-            contieneCircuitos = BDCircuitos.contieneCircuitos(circuitoId);
+            Circuito.contieneCircuitos = BDCircuitos.contieneCircuitos(circuitoId);
 
-            if (contieneCircuitos)
+            if (Circuito.contieneCircuitos)
             {
                 throw new Exception("No puedes seleccionar un circuito que contenga circuitos, es decir que sea un circuito padre");
             }
@@ -101,6 +85,89 @@ namespace Gestor_de_contenido_SG
 
             this.Close();
             Controlador.mostrarMenu();
+        }
+
+        private void BuscarHijos(string nombre)
+        {
+            int posicion = lista_circuitos.SelectedIndex;
+
+            Circuito.ocircuitoPadre = BDCircuitos.buscarCircuitoPadre(nombre);
+
+            if (Circuito.ocircuitoPadre != null)
+            {
+                int idPadre = Circuito.ocircuitoPadre.id;
+                Circuito.circuitosHijos = BDCircuitos.buscarCircuitosHijos(idPadre);
+
+                if (Circuito.circuitosHijos != null)
+                {
+                    foreach (ClaseCircuito ocircuito in Circuito.circuitosHijos)
+                    {
+                        for (int x = lista_circuitos.Items.Count - 1; x >= 0; --x)
+                        {
+                            string removelistitem = ocircuito.titulo;
+                            if (lista_circuitos.Items[x].ToString().Contains(removelistitem))
+                            {
+                                lista_circuitos.Items.RemoveAt(x);
+                            }
+                        }
+                        Circuito.contieneCircuitos = BDCircuitos.contieneCircuitos(ocircuito.id);
+                        if (Circuito.contieneCircuitos)
+                        {
+                            int nivel = ocircuito.nivel;
+
+                            //dependiendo de a que nivel esten se les pondra una separacion para poder diferenciar a que altura estan
+                            switch (nivel)
+                            {
+                                case 1:
+                                    lista_circuitos.Items.Add(ocircuito.titulo + " >");
+                                    break;
+                                case 2:
+                                    lista_circuitos.Items.Insert(posicion + 1, "  " + ocircuito.titulo + " >");
+                                    break;
+                                case 3:
+                                    lista_circuitos.Items.Insert(posicion + 1, "    " + ocircuito.titulo + " >");
+                                    break;
+                                case 4:
+                                    lista_circuitos.Items.Insert(posicion + 1, "      " + ocircuito.titulo + " >");
+                                    break;
+                                case 5:
+                                    lista_circuitos.Items.Insert(posicion + 1, "        " + ocircuito.titulo + " >");
+                                    break;
+                            }
+                        }
+                        else
+                        {
+                            int nivel = ocircuito.nivel;
+
+                            //dependiendo de a que nivel esten se les pondra una separacion para poder diferenciar a que altura estan
+                            switch (nivel)
+                            {
+                                case 1:
+                                    lista_circuitos.Items.Insert(posicion + 1, ocircuito.titulo);
+                                    break;
+                                case 2:
+                                    lista_circuitos.Items.Insert(posicion + 1, "  " + ocircuito.titulo);
+                                    break;
+                                case 3:
+                                    lista_circuitos.Items.Insert(posicion + 1, "    " + ocircuito.titulo);
+                                    break;
+                                case 4:
+                                    lista_circuitos.Items.Insert(posicion + 1, "      " + ocircuito.titulo);
+                                    break;
+                                case 5:
+                                    lista_circuitos.Items.Insert(posicion + 1, "        " + ocircuito.titulo);
+                                    break;
+                            }
+                        }
+                    }
+                    Circuito.circuitosHijos.Clear();
+                }
+                else
+                {
+                    Circuito.circuitosHijos = new ArrayList();
+                }
+                Circuito.circuitosHijos.Clear();
+            }
         }
 
         private void volver_Click(object sender, EventArgs e)

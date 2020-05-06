@@ -21,6 +21,7 @@ namespace Gestor_de_contenido_SG
         private int altura = 50;
         private int contador;
         private int anchoTotal = 0;
+        private int columnaAlta = 0;
 
         public Bloque(string titulo)
         {
@@ -78,26 +79,33 @@ namespace Gestor_de_contenido_SG
                     //se crea la columna, aparte de funciones necesarias para el correcto funcionamiento
                     Panel panel1 = new Panel();
 
-                    /*propiedades para posicionar las columnas en horizontal y no en vertical ESTA SIN TERMINAR
-                    if (anchoTotal + anchoEnPixeles < 1260)
+                    //propiedades para posicionar las columnas en horizontal y no en vertical ESTA SIN TERMINAR
+                    if (anchoTotal + ocolumna.ancho < 1260)
                     {
-                        anchoTotal += anchoEnPixeles;
                         panel1.Left = anchoTotal;
+                        panel1.Top = altura;
+                        anchoTotal += ocolumna.ancho;                       
+                        if (ocolumna.alto > columnaAlta)
+                        {
+                            columnaAlta = ocolumna.alto;
+                        }                           
                     }
                     else
                     {
-
-                    }*/
+                        anchoTotal = 0;
+                        panel1.Top = altura + columnaAlta;
+                        panel1.Left = anchoTotal;
+                        anchoTotal += ocolumna.ancho;
+                    }
 
 
 
                     //Propiedades que tendra la columna al ser creada
                     panel1.BorderStyle = BorderStyle.FixedSingle;
-                    panel1.Top = altura;
+                    //panel1.Top = altura;
                     panel1.Name = "columna" + contador;
                     panel1.Size = new Size(ocolumna.ancho, ocolumna.alto);
-                    panel1.AutoSize = true;
-                    panel1.MaximumSize = new Size(1260, 1500);
+                    panel1.MaximumSize = new Size(1260, 570);
                     panel1.MinimumSize = new Size(200, 100);
                     panel1.BackColor = Color.Transparent;
 
@@ -226,7 +234,7 @@ namespace Gestor_de_contenido_SG
                         panel1.Controls[x].Click += delegate (object send, EventArgs ea) { Controlador.mostrarColumna(send, ea, ocolumna.titulo, panel1.Width, panel1.Height); Hide(); };
                     }
 
-                    altura += panel1.Height + 20;
+                    //altura += panel1.Height + 20;
                 }
                 listaColumnas.Clear();
             }
