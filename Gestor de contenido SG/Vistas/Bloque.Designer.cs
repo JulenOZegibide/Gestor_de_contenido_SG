@@ -35,7 +35,7 @@
             this.nombre_bloque = new System.Windows.Forms.Label();
             this.volver = new System.Windows.Forms.PictureBox();
             this.borrarBloque = new System.Windows.Forms.PictureBox();
-            this.contenedor = new System.Windows.Forms.Panel();
+            this.contenedorGrande = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.volver)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.borrarBloque)).BeginInit();
             this.SuspendLayout();
@@ -111,25 +111,21 @@
             this.borrarBloque.TabStop = false;
             this.borrarBloque.Click += new System.EventHandler(this.borrarBloque_Click);
             // 
-            // contenedor
+            // contenedorGrande
             // 
-            this.contenedor.AllowDrop = true;
-            this.contenedor.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.contenedor.AutoSize = true;
-            this.contenedor.BackColor = System.Drawing.Color.Transparent;
-            this.contenedor.Location = new System.Drawing.Point(0, 60);
-            this.contenedor.Name = "contenedor";
-            this.contenedor.Size = new System.Drawing.Size(987, 196);
-            this.contenedor.TabIndex = 20;
+            this.contenedorGrande.AutoScroll = true;
+            this.contenedorGrande.BackColor = System.Drawing.Color.Transparent;
+            this.contenedorGrande.Location = new System.Drawing.Point(0, 60);
+            this.contenedorGrande.Name = "contenedorGrande";
+            this.contenedorGrande.Size = new System.Drawing.Size(987, 196);
+            this.contenedorGrande.TabIndex = 20;
             // 
             // Bloque
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.ClientSize = new System.Drawing.Size(989, 515);
-            this.Controls.Add(this.contenedor);
+            this.Controls.Add(this.contenedorGrande);
             this.Controls.Add(this.borrarBloque);
             this.Controls.Add(this.volver);
             this.Controls.Add(this.nombre_bloque);
@@ -157,7 +153,7 @@
         private System.Windows.Forms.Label nombre_bloque;
         private System.Windows.Forms.PictureBox volver;
         private System.Windows.Forms.PictureBox borrarBloque;
-        private System.Windows.Forms.Panel contenedor;
+        private System.Windows.Forms.Panel contenedorGrande;
     }
 
 }

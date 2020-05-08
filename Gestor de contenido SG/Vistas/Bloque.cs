@@ -18,8 +18,8 @@ namespace Gestor_de_contenido_SG
     {
         //variables globales
         public static ArrayList listaColumnas = new ArrayList();
-        private int altura = 50;
         private int contador;
+        Panel contenedor;
 
         public Bloque(string titulo)
         {
@@ -40,10 +40,17 @@ namespace Gestor_de_contenido_SG
             this.MaximizeBox = false;
             this.MinimizeBox = false;
 
-            //tamaño del contenedor
+            //tamaño del contenedor grande
+            contenedorGrande.Size = new Size(1384,704);
+
+            //tamaño del contenedor pequeño
+            contenedor = new Panel();
             contenedor.Size = new Size(1260, 700);
             contenedor.MaximumSize = new Size(1260, 3000);
             contenedor.Left = 53;
+            contenedor.AutoSize = true;
+
+            contenedorGrande.Controls.Add(contenedor);
         }
 
         private void crear_columna_Click(object sender, EventArgs e)
@@ -119,11 +126,15 @@ namespace Gestor_de_contenido_SG
 
                 if (Dragging)
                 {
+                    //this.AutoScroll = false;
+
                     if (direction != Direction.Vertical)
                         control.Left = Math.Min(Math.Max(0, e.X + control.Left - DragStart.X), panelcontenedor.Right - container.Width);
 
                     if (direction != Direction.Horizontal)
                         control.Top = Math.Max(0, e.Y + control.Top - DragStart.Y);
+
+                    //this.AutoScroll = true;
                 }
             };
         }
@@ -296,7 +307,7 @@ namespace Gestor_de_contenido_SG
             //Propiedades que tendra la columna al ser creada
             panel1.BackColor = Color.Transparent;
             panel1.BorderStyle = BorderStyle.FixedSingle;
-            panel1.Top = altura;
+            panel1.Top = 30;
             panel1.Name = "columna" + contador;
             panel1.Size = new Size(200, 160);
             panel1.AutoSize = true;
