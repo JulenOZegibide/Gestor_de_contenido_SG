@@ -102,8 +102,8 @@ namespace Gestor_de_contenido_SG.FuncionesBD
             BDConexion.Open();
             try
             {
-                string insertar = "UPDATE ELEMENTOS SET ANCHO = @ancho WHERE ID = @id";
-                OleDbCommand cmd = new OleDbCommand(insertar, BDConexion);
+                string actualizar = "UPDATE ELEMENTOS SET ANCHO = @ancho WHERE ID = @id";
+                OleDbCommand cmd = new OleDbCommand(actualizar, BDConexion);
 
                 cmd.Parameters.AddWithValue("@ancho", ancho);
                 cmd.Parameters.AddWithValue("@id", id);
@@ -128,8 +128,8 @@ namespace Gestor_de_contenido_SG.FuncionesBD
             BDConexion.Open();
             try
             {
-                string insertar = "UPDATE ELEMENTOS SET ESPACIO_IZQUIERDA = @izquierda , ESPACIO_ARRIBA = @arriba WHERE ID = @id";
-                OleDbCommand cmd = new OleDbCommand(insertar, BDConexion);
+                string actualizar = "UPDATE ELEMENTOS SET ESPACIO_IZQUIERDA = @izquierda , ESPACIO_ARRIBA = @arriba WHERE ID = @id";
+                OleDbCommand cmd = new OleDbCommand(actualizar, BDConexion);
 
                 cmd.Parameters.AddWithValue("@izquierda", izquierda);
                 cmd.Parameters.AddWithValue("@arriba", arriba);

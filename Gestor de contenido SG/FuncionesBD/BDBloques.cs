@@ -39,6 +39,30 @@ namespace Gestor_de_contenido_SG.FuncionesBD
             BDConexion.Close();
         }
 
+        /*public static void actu()
+        {
+            Controlador.Conectar();
+            OleDbConnection BDConexion = Controlador.BDConexion;
+            BDConexion.Open();
+            try
+            {
+                string insertar = "DELETE * FROM ELEMENTOS";
+                OleDbCommand cmd = new OleDbCommand(insertar, BDConexion);
+
+                cmd.ExecuteNonQuery();
+                MessageBox.Show("Registro guardado");
+            }
+            catch (DBConcurrencyException ex)
+            {
+                MessageBox.Show("Error de concurrencia:\n" + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            BDConexion.Close();
+        }*/
+
         public static int buscarIdBloque(string tituloBloque)
         {
             Controlador.Conectar();

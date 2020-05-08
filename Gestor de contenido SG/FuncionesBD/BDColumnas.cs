@@ -19,13 +19,15 @@ namespace Gestor_de_contenido_SG.FuncionesBD
             BDConexion.Open();
             try
             {
-                string insertar = "INSERT INTO COLUMNAS(TITULO,ANCHO,BLOQUE_ID,ALTO) VALUES (@titulo, @ancho, @bloqueId, @alto)";
+                string insertar = "INSERT INTO COLUMNAS(TITULO,ANCHO,BLOQUE_ID,ALTO,ESPACIO_IZQUIERDA,ESPACIO_ARRIBA) VALUES (@titulo, @ancho, @bloqueId, @alto, @espacio_izquierda, @espacio_arriba)";
                 OleDbCommand cmd = new OleDbCommand(insertar, BDConexion);
 
                 cmd.Parameters.AddWithValue("@titulo", ocolumna.titulo);
                 cmd.Parameters.AddWithValue("@ancho", ocolumna.ancho);
                 cmd.Parameters.AddWithValue("@bloqueId", ocolumna.bloque_id);
                 cmd.Parameters.AddWithValue("@alto", ocolumna.alto);
+                cmd.Parameters.AddWithValue("@espacio_izquierda", ocolumna.espacio_izquierda);
+                cmd.Parameters.AddWithValue("@espacio_arriba", ocolumna.espacio_arriba);
 
                 cmd.ExecuteNonQuery();
                 MessageBox.Show("Registro guardado");
@@ -111,7 +113,7 @@ namespace Gestor_de_contenido_SG.FuncionesBD
                     {
                         int NumberOfColums = lector.GetValues(objeto);
 
-                        ClaseColumna ocolumna = new ClaseColumna(Convert.ToInt16(objeto[0]), objeto[1].ToString(), Convert.ToInt16(objeto[2]), Convert.ToInt16(objeto[3]), Convert.ToInt16(objeto[4]));
+                        ClaseColumna ocolumna = new ClaseColumna(Convert.ToInt16(objeto[0]), objeto[1].ToString(), Convert.ToInt16(objeto[2]), Convert.ToInt16(objeto[3]), Convert.ToInt16(objeto[4]), Convert.ToInt16(objeto[5]), Convert.ToInt16(objeto[6]));
                         Bloque.listaColumnas.Add(ocolumna);
 
                         Console.WriteLine();
@@ -244,6 +246,33 @@ namespace Gestor_de_contenido_SG.FuncionesBD
                 BDConexion.Close();
                 return 0;               
             }
+        }
+
+        public static void actualizarPosicion(int izquierda, int arriba, string nombre)
+        {
+            Controlador.Conectar();
+            OleDbConnection BDConexion = Controlador.BDConexion;
+            BDConexion.Open();
+            try
+            {
+                string actualizar = "UPDATE COLUMNAS SET ESPACIO_IZQUIERDA = @izquierda , ESPACIO_ARRIBA = @arriba WHERE TITULO = @nombre";
+                OleDbCommand cmd = new OleDbCommand(actualizar, BDConexion);
+
+                cmd.Parameters.AddWithValue("@izquierda", izquierda);
+                cmd.Parameters.AddWithValue("@arriba", arriba);
+                cmd.Parameters.AddWithValue("@nombre", nombre);
+
+                cmd.ExecuteNonQuery();
+            }
+            catch (DBConcurrencyException ex)
+            {
+                MessageBox.Show("Error de concurrencia:\n" + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            BDConexion.Close();
         }
 
         public static void borrarColumna(string id)

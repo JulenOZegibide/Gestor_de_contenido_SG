@@ -20,8 +20,6 @@ namespace Gestor_de_contenido_SG
         public static ArrayList listaColumnas = new ArrayList();
         private int altura = 50;
         private int contador;
-        private int anchoTotal = 0;
-        private int columnaAlta = 0;
 
         public Bloque(string titulo)
         {
@@ -41,6 +39,11 @@ namespace Gestor_de_contenido_SG
             this.FormBorderStyle = FormBorderStyle.None;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
+
+            //tamaño del contenedor
+            contenedor.Size = new Size(1260, 700);
+            contenedor.MaximumSize = new Size(1260, 3000);
+            contenedor.Left = 53;
         }
 
         private void crear_columna_Click(object sender, EventArgs e)
@@ -62,18 +65,71 @@ namespace Gestor_de_contenido_SG
 
         }
 
+        public enum Direction
+        {
+            Any,
+            Horizontal,
+            Vertical
+        }
+
+        //primera parte de la funcion para que un elemento se pueda mover
+        public void controlMovible(Control control)
+        {
+            controlMovible(control, Direction.Any);
+        }
+
+        //segunda parte de la funcion para que un elemento se pueda mover
+        public void controlMovible(Control control, Direction direction)
+        {
+            controlMovible(control, control, direction);
+        }
+
+        //tercera parte de la funcion para que un elemento se pueda mover
+        public void controlMovible(Control control, Control container, Direction direction)
+        {
+            bool Dragging = false;
+            Point DragStart = Point.Empty;
+
+            //funcion para cuando clickas sobre el elemento para modificar la posicion del elemento
+            control.MouseDown += delegate (object sender, MouseEventArgs e)
+            {
+                Dragging = true;
+                DragStart = new Point(e.X, e.Y);
+                control.Capture = true;
+            };
+
+            //funcion para cuando se deja de clickar sobre el elemento para modificar la posicion del elemento
+            control.MouseUp += delegate (object sender, MouseEventArgs e)
+            {
+                Dragging = false;
+                control.Capture = false;
+
+                BDColumnas.actualizarPosicion(control.Left, control.Top, control.Controls[0].Text.ToString());
+            };
+
+            //funcion que al estar clickando permite modificar la posicion del elemento
+            control.MouseMove += delegate (object sender, MouseEventArgs e)
+            {
+                //hacer que la columna que se quiere mover se site sobre el resto
+                control.BringToFront();
+
+                //metodo para que el elemento no pueda sobrepasar el ancho del contenedor de la columna
+                container = (Control)sender;
+                Rectangle panelcontenedor = container.Parent.ClientRectangle;
+
+                if (Dragging)
+                {
+                    if (direction != Direction.Vertical)
+                        control.Left = Math.Min(Math.Max(0, e.X + control.Left - DragStart.X), panelcontenedor.Right - container.Width);
+
+                    if (direction != Direction.Horizontal)
+                        control.Top = Math.Max(0, e.Y + control.Top - DragStart.Y);
+                }
+            };
+        }
+
         public void pintarBloques()
         {
-            //variables locales para el posicionamiento de las columnas
-            altura = 0;
-            anchoTotal = 0;
-
-            //esconder la barra de scroll para que no estorbe
-            contenedor.AutoScroll = false;
-            contenedor.AutoScrollPosition = new Point(0, 0);
-            contenedor.VerticalScroll.Maximum = 0;
-            contenedor.AutoScroll = true;
-
             //limpiar la lista de columnas y las columnas que contiene el bloque para evitar repetidos
             listaColumnas.Clear();
             contenedor.Controls.Clear();
@@ -88,31 +144,12 @@ namespace Gestor_de_contenido_SG
                     //se crea la columna, aparte de funciones necesarias para el correcto funcionamiento
                     Panel panel1 = new Panel();
 
-                    //propiedades para posicionar las columnas en horizontal
-                    if (anchoTotal + ocolumna.ancho < 1260)
-                    {
-                        panel1.Left = anchoTotal;
-                        panel1.Top = altura;
-                        anchoTotal += ocolumna.ancho;                       
-                        if (ocolumna.alto > columnaAlta)
-                        {
-                            columnaAlta = ocolumna.alto;
-                        }                           
-                    }
-                    else
-                    {
-                        anchoTotal = 0;
-                        panel1.Top = altura + columnaAlta;
-                        panel1.Left = anchoTotal;
-                        anchoTotal += ocolumna.ancho;
-                    }
-
-
-
                     //Propiedades que tendra la columna al ser creada
                     panel1.BorderStyle = BorderStyle.FixedSingle;
                     panel1.Name = "columna" + contador;
                     panel1.Size = new Size(ocolumna.ancho, ocolumna.alto);
+                    panel1.Left = ocolumna.espacio_izquierda;
+                    panel1.Top = ocolumna.espacio_arriba;
                     panel1.MaximumSize = new Size(1260, 570);
                     panel1.MinimumSize = new Size(200, 100);
                     panel1.BackColor = Color.Transparent;
@@ -137,8 +174,6 @@ namespace Gestor_de_contenido_SG
                     Columna.listaElementos = BDElementos.buscarElementos(ocolumna.id.ToString());
                     if (Columna.listaElementos != null)
                     {
-                        int alturaelementos = 30;
-
                         foreach (ClaseElemento oelemento in Columna.listaElementos)
                         {
                             string tipo = oelemento.tipo;
@@ -163,10 +198,9 @@ namespace Gestor_de_contenido_SG
                                     imagen.Size = new Size(imageWidth, imageHeight);
                                     imagen.SizeMode = PictureBoxSizeMode.StretchImage;
                                     imagen.Width = oelemento.ancho;
+                                    imagen.Enabled = false;
 
                                     panel1.Controls.Add(imagen);
-
-                                    alturaelementos += imagen.Height;
                                     break;
 
                                 case "video":
@@ -183,10 +217,9 @@ namespace Gestor_de_contenido_SG
                                     video.MinimumSize = new Size(240, 135);
                                     video.Width = oelemento.ancho;
                                     video.Height = oelemento.ancho / 2;
+                                    video.Enabled = false;
 
                                     panel1.Controls.Add(video);
-
-                                    alturaelementos += video.Height;
                                     break;
 
                                 case "p":
@@ -201,10 +234,9 @@ namespace Gestor_de_contenido_SG
                                     parrafo.MinimumSize = new Size(10, 10);
                                     parrafo.AutoSize = true;
                                     parrafo.Width = oelemento.ancho;
+                                    parrafo.Enabled = false;
 
                                     panel1.Controls.Add(parrafo);
-
-                                    alturaelementos += parrafo.Height;
                                     break;
 
                                 case "title":
@@ -220,10 +252,9 @@ namespace Gestor_de_contenido_SG
                                     titulo.MaximumSize = new Size(panel1.Width, 300);
                                     titulo.MinimumSize = new Size(10, 10);
                                     titulo.Width = oelemento.ancho;
+                                    titulo.Enabled = false;
 
                                     panel1.Controls.Add(titulo);
-
-                                    alturaelementos += titulo.Height;
                                     break;
                             }
                         }
@@ -236,11 +267,8 @@ namespace Gestor_de_contenido_SG
                     panel1.MinimumSize = new Size(200, panel1.Height);
 
                     //añade un evento cuando se hace click sobre una columna
-                    panel1.Click += delegate (object send, EventArgs ea) { Controlador.mostrarColumna(send, ea, ocolumna.titulo, panel1.Width, panel1.Height); Hide(); };
-                    for (int x = 0; x < panel1.Controls.Count; x++)
-                    {
-                        panel1.Controls[x].Click += delegate (object send, EventArgs ea) { Controlador.mostrarColumna(send, ea, ocolumna.titulo, panel1.Width, panel1.Height); Hide(); };
-                    }
+                    panel1.DoubleClick += delegate (object send, EventArgs ea) { Controlador.mostrarColumna(send, ea, ocolumna.titulo, panel1.Width, panel1.Height); Hide(); };
+                    controlMovible(panel1);
                 }
                 listaColumnas.Clear();
             }
@@ -276,16 +304,11 @@ namespace Gestor_de_contenido_SG
             panel1.MinimumSize = new Size(200, 160);
 
             //crear objeto de la clase columna 
-            ClaseColumna ocolumna = new ClaseColumna(nombre.Text, panel1.Width, Convert.ToInt16(bloque_id.Text), 160);
+            ClaseColumna ocolumna = new ClaseColumna(nombre.Text, panel1.Width, Convert.ToInt16(bloque_id.Text), 160, 0, 0);
 
             this.Controls.Add(panel1);
 
-            //añade un evento cuando se hace click sobre una columna
-            panel1.Click += delegate (object send, EventArgs ea) { Controlador.mostrarColumna(send, ea, nombre.Text, panel1.Width, panel1.Height); Hide(); };
-
             contenedor.Controls.Add(panel1);
-
-            altura += panel1.Height + 20;
 
             contador++;
 
