@@ -46,7 +46,7 @@ namespace Gestor_de_contenido_SG.FuncionesBD
             BDConexion.Open();
             try
             {
-                string insertar = "DELETE * FROM ELEMENTOS";
+                string insertar = "ALTER TABLE ELEMENTOS ADD COLUMN alto CHAR(25)";
                 OleDbCommand cmd = new OleDbCommand(insertar, BDConexion);
 
                 cmd.ExecuteNonQuery();

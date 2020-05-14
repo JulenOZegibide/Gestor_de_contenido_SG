@@ -29,10 +29,7 @@ namespace Gestor_de_contenido_SG
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
 
-                //Application.Run(new Columna("columna2", 1260, 570));
-                Application.Run(new Bloque("bloque1"));
-                //Application.Run(new Pagina(21, "pagina2"));
-                //Application.Run(menu = new Menu());
+                Application.Run(menu = new Menu());
             }
             catch (Exception e)
             {

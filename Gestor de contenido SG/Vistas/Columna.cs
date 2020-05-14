@@ -22,7 +22,6 @@ namespace Gestor_de_contenido_SG
     {
         //variables globales
         public static ArrayList listaElementos = new ArrayList();
-        private int altura;
         public static int espacioArriba;
         public static int espacioIzquierda;
         bool allowResize = false;
@@ -32,10 +31,12 @@ namespace Gestor_de_contenido_SG
 
         public Columna(string titulo, int anchoColumna, int altoColumna)
         {
+            SetStyle(ControlStyles.SupportsTransparentBackColor, true);
+
             InitializeComponent();
 
             //funcion que se llama al cerrar la ventana
-            this.FormClosing += new FormClosingEventHandler(Controlador.volveraBloque);
+            this.FormClosing += new FormClosingEventHandler(Controlador.volveraBloque);         
 
             //buscar el id correspondiente a ese titulo
             int idColumna = BDColumnas.buscarIdColumna(titulo);
@@ -178,31 +179,51 @@ namespace Gestor_de_contenido_SG
         }
 
         //funcion para cuando clickas en la esquina inferior para modificar el tamaño del elemento
-        private void pictureBox1_MouseDown(object sender, MouseEventArgs e, Control elemento)
+        private void pictureBox1_MouseDown(object sender, MouseEventArgs e, Control elemento, PictureBox pictureBox1)
         {
-            elemento.MaximumSize = new Size(1260, 300);
-            elemento.MinimumSize = new Size(10, 10);
-            allowResize = true;
+            elemento.MaximumSize = new Size(1260, 570);
+            allowResize = true;          
         }
 
         //funcion para cuando se deja de clickar en la esquina inferior para modificar el tamaño del elemento
-        private void pictureBox1_MouseUp(object sender, MouseEventArgs e, Control elemento, ClaseElemento oelemento)
+        private void pictureBox1_MouseUp(object sender, MouseEventArgs e, Control elemento)
         {
             allowResize = false;
 
-            //actualizar el valor del ancho del elemento en base de datos
-            BDElementos.actualizarAncho(elemento.Width, Convert.ToInt16(elemento.Name));
+            //actualizar el tamaño del elemento en base de datos
+            BDElementos.actualizarTamaño(elemento.Width, elemento.Height, Convert.ToInt16(elemento.Name));
         }
+
 
         //funcion que al estar clickando permite modificar el tamaño del elemento
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e, Control elemento, PictureBox pictureBox1)
         {
+
             if (allowResize)
             {
+                int anchoMax = 0;
+                int altoMax = 0;
+
+
+
+                if (elemento.Top + elemento.Height >= contenedorColumna.Height - 8 || elemento.Left + elemento.Width >= contenedorColumna.Width - 8)
+                {
+                    if (elemento.Top + elemento.Height >= contenedorColumna.Height - 8)
+                    altoMax = elemento.Height;
+
+                    if (elemento.Left + elemento.Width >= contenedorColumna.Width - 8)
+                        anchoMax = elemento.Width;
+
+                    elemento.MaximumSize = new Size(anchoMax, altoMax);
+                }
+
                 elemento.Width = pictureBox1.Left + e.X;
                 elemento.Height = pictureBox1.Top + e.Y;
 
+
+
                 elemento.AutoSize = false;
+
             }
         }
 
@@ -215,22 +236,22 @@ namespace Gestor_de_contenido_SG
         {
             //imagenes que permiten cambiar el ancho y el alto del contenedor de la columna
             bordeInferior = new PictureBox();
-            bordeInferior.BackColor = Color.BlanchedAlmond;
+            bordeInferior.BackColor = Color.FromArgb(185, 209, 234);
             bordeInferior.MinimumSize = new Size(1260, 10);
             bordeInferior.AutoSize = false;
             bordeInferior.Height = 10;
             bordeInferior.Anchor = ((AnchorStyles)((AnchorStyles.Left | AnchorStyles.Bottom)));
             bordeInferior.Cursor = Cursors.SizeNS;
-            bordeInferior.Top = contenedorColumna.Height - 10;
+            bordeInferior.Top = contenedorColumna.Height - 7;
 
             bordeDerecho = new PictureBox();
-            bordeDerecho.BackColor = Color.BlanchedAlmond;
+            bordeDerecho.BackColor = Color.FromArgb(185, 209, 234);
             bordeDerecho.Width = 10;
             bordeDerecho.MinimumSize = new Size(10, 570);
             bordeDerecho.AutoSize = false;
             bordeDerecho.Anchor = ((AnchorStyles)((AnchorStyles.Top | AnchorStyles.Right)));
             bordeDerecho.Cursor = Cursors.SizeWE;
-            bordeDerecho.Left = contenedorColumna.Width - 10;
+            bordeDerecho.Left = contenedorColumna.Width - 7;
 
             contenedorColumna.Controls.Add(bordeInferior);
             contenedorColumna.Controls.Add(bordeDerecho);
@@ -243,6 +264,7 @@ namespace Gestor_de_contenido_SG
         {
             contenedorColumna.Controls.Clear();
             crearBarrasDeRedimension();
+
             //rellena la lista de elementos desde base de datos para posteriormente recorrela
             listaElementos = BDElementos.buscarElementos(columna_id.Text);
             if (listaElementos != null)
@@ -257,53 +279,27 @@ namespace Gestor_de_contenido_SG
                             PictureBox imagen = new PictureBox();
                             imagen.Image = Image.FromFile(@"..\..\ImagenesBD\\" + oelemento.contenido);
 
-                            Bitmap img = new Bitmap(Image.FromFile(@"..\..\ImagenesBD\\" + oelemento.contenido));
-
-                            var imageHeight = img.Height;
-                            var imageWidth = img.Width;
-
-                            /*Bitmap myImg = new Bitmap(Image.FromFile(@"..\..\ImagenesBD\\" + oelemento.contenido));
-                            int getWidth = myImg.Width;
-                            int getHeight = myImg.Height;
-                            double ratio = 0;
-                            if (getWidth > getHeight)
-                            {
-                                ratio = getWidth / 400;
-                                getWidth = 400;
-                                getHeight = (int)(getHeight / ratio);
-                            }
-                            else
-                            {
-                                ratio = getHeight / 400;
-                                getHeight = 400;
-                                getWidth = (int)(getWidth / ratio);
-                            }*/
-
                             //propiedades de la imagen
                             imagen.Top = oelemento.espacio_arriba;
                             imagen.Left = oelemento.espacio_izquierda;
                             imagen.Name = oelemento.id.ToString();
                             imagen.BorderStyle = BorderStyle.FixedSingle;
-                            imagen.MaximumSize = new Size(contenedorColumna.Width, contenedorColumna.Height);
+                            imagen.MaximumSize = new Size(1260, 570);
                             imagen.MinimumSize = new Size(10, 10);
-                            //imagen.MaximumSize = new Size(oelemento.ancho, contenedorColumna.Height);
-                            //imagen.MinimumSize = new Size(oelemento.ancho, 10);
-                            imagen.Size = new Size(imageWidth, imageHeight);
-                            //imagen.Size = new Size(getWidth, getHeight);
                             imagen.SizeMode = PictureBoxSizeMode.StretchImage;
-                            //imagen.AutoSize = true;
                             imagen.Width = oelemento.ancho;
+                            imagen.Height = oelemento.alto;
 
                             //elemento para poder cambiar el tamaño de la imagen
                             PictureBox pictureBox1 = new PictureBox();
-                            pictureBox1.BackColor = Color.BlanchedAlmond;
+                            pictureBox1.BackColor = Color.FromArgb(185, 209, 234);
                             pictureBox1.Anchor = ((AnchorStyles)((AnchorStyles.Right | AnchorStyles.Bottom)));
                             pictureBox1.Cursor = Cursors.SizeNWSE;
                             pictureBox1.Left = imagen.Width - 10;
                             pictureBox1.Top = imagen.Height - 10;
-                            pictureBox1.MouseDown += delegate (object send, MouseEventArgs ea) { this.pictureBox1_MouseDown(send, ea, imagen); };
+                            pictureBox1.MouseDown += delegate (object send, MouseEventArgs ea) { this.pictureBox1_MouseDown(send, ea, imagen, pictureBox1); };
                             pictureBox1.MouseMove += delegate (object send, MouseEventArgs ea) { this.pictureBox1_MouseMove(send, ea, imagen, pictureBox1); };
-                            pictureBox1.MouseUp += delegate (object send, MouseEventArgs ea) { this.pictureBox1_MouseUp(send, ea, imagen, oelemento); };
+                            pictureBox1.MouseUp += delegate (object send, MouseEventArgs ea) { this.pictureBox1_MouseUp(send, ea, imagen); };
 
                             imagen.Controls.Add(pictureBox1);
 
@@ -323,22 +319,21 @@ namespace Gestor_de_contenido_SG
                             video.Name = oelemento.id.ToString();
                             video.BorderStyle = BorderStyle.FixedSingle;
                             video.SizeMode = PictureBoxSizeMode.CenterImage;
-                            video.MaximumSize = new Size(contenedorColumna.Width, contenedorColumna.Height);
                             video.MinimumSize = new Size(240, 135);
                             video.Width = oelemento.ancho;
-                            video.Height = oelemento.ancho / 2;
+                            video.Height = oelemento.alto;
 
                             //elemento para poder cambiar el tamaño de la imagen
                             PictureBox pictureBox2 = new PictureBox();
-                            pictureBox2.BackColor = Color.BlanchedAlmond;
+                            pictureBox2.BackColor = Color.FromArgb(185, 209, 234);
                             pictureBox2.Height = video.Height;
                             pictureBox2.Anchor = ((AnchorStyles)((AnchorStyles.Right | AnchorStyles.Bottom)));
                             pictureBox2.Cursor = Cursors.SizeNWSE;
                             pictureBox2.Left = video.Width - 10;
                             pictureBox2.Top = video.Height - 10;
-                            pictureBox2.MouseDown += delegate (object send, MouseEventArgs ea) { this.pictureBox1_MouseDown(send, ea, video); };
+                            pictureBox2.MouseDown += delegate (object send, MouseEventArgs ea) { this.pictureBox1_MouseDown(send, ea, video, pictureBox2); };
                             pictureBox2.MouseMove += delegate (object send, MouseEventArgs ea) { this.pictureBox1_MouseMove(send, ea, video, pictureBox2); };
-                            pictureBox2.MouseUp += delegate (object send, MouseEventArgs ea) { this.pictureBox1_MouseUp(send, ea, video, oelemento); };
+                            pictureBox2.MouseUp += delegate (object send, MouseEventArgs ea) { this.pictureBox1_MouseUp(send, ea, video); };
 
                             video.Controls.Add(pictureBox2);
 
@@ -357,21 +352,22 @@ namespace Gestor_de_contenido_SG
                             parrafo.Left = oelemento.espacio_izquierda;
                             parrafo.Name = oelemento.id.ToString();
                             parrafo.BorderStyle = BorderStyle.FixedSingle;
-                            parrafo.MaximumSize = new Size(oelemento.ancho, contenedorColumna.Height);
+                            parrafo.MaximumSize = new Size(1260, 570);
                             parrafo.MinimumSize = new Size(10, 10);
-                            parrafo.AutoSize = true;
+                            parrafo.Width = oelemento.ancho;
+                            parrafo.Height = oelemento.alto;
 
                             //elemento para poder cambiar el tamaño de la imagen
                             PictureBox pictureBox3 = new PictureBox();
-                            pictureBox3.BackColor = Color.BlanchedAlmond;
+                            pictureBox3.BackColor = Color.FromArgb(185, 209, 234);
                             pictureBox3.Height = parrafo.Height;
                             pictureBox3.Anchor = ((AnchorStyles)((AnchorStyles.Right | AnchorStyles.Bottom)));
                             pictureBox3.Cursor = Cursors.SizeNWSE;
                             pictureBox3.Left = parrafo.Width - 10;
                             pictureBox3.Top = parrafo.Height - 10;
-                            pictureBox3.MouseDown += delegate (object send, MouseEventArgs ea) { this.pictureBox1_MouseDown(send, ea, parrafo); };
+                            pictureBox3.MouseDown += delegate (object send, MouseEventArgs ea) { this.pictureBox1_MouseDown(send, ea, parrafo, pictureBox3); };
                             pictureBox3.MouseMove += delegate (object send, MouseEventArgs ea) { this.pictureBox1_MouseMove(send, ea, parrafo, pictureBox3); };
-                            pictureBox3.MouseUp += delegate (object send, MouseEventArgs ea) { this.pictureBox1_MouseUp(send, ea, parrafo, oelemento); };
+                            pictureBox3.MouseUp += delegate (object send, MouseEventArgs ea) { this.pictureBox1_MouseUp(send, ea, parrafo); };
 
                             parrafo.Controls.Add(pictureBox3);
 
@@ -390,23 +386,23 @@ namespace Gestor_de_contenido_SG
                             titulo.Left = oelemento.espacio_izquierda;
                             titulo.Name = oelemento.id.ToString();
                             titulo.BorderStyle = BorderStyle.FixedSingle;
-                            titulo.AutoSize = true;
                             titulo.Font = new Font("Arial", 16);
-                            titulo.MaximumSize = new Size(contenedorColumna.Width, contenedorColumna.Height);
-                            titulo.MinimumSize = new Size(10, 10);
+                            titulo.MaximumSize = new Size(1260, 26);
+                            titulo.MinimumSize = new Size(10, 26);
                             titulo.Width = oelemento.ancho;
+                            titulo.Height = oelemento.alto;
 
                             //elemento para poder cambiar el tamaño de la imagen
                             PictureBox pictureBox4 = new PictureBox();
-                            pictureBox4.BackColor = Color.BlanchedAlmond;
+                            pictureBox4.BackColor = Color.FromArgb(185, 209, 234);
                             pictureBox4.Height = titulo.Height;
                             pictureBox4.Anchor = ((AnchorStyles)((AnchorStyles.Right | AnchorStyles.Bottom)));
                             pictureBox4.Cursor = Cursors.SizeNWSE;
                             pictureBox4.Left = titulo.Width - 10;
                             pictureBox4.Top = titulo.Height - 10;
-                            pictureBox4.MouseDown += delegate (object send, MouseEventArgs ea) { this.pictureBox1_MouseDown(send, ea, titulo); };
+                            pictureBox4.MouseDown += delegate (object send, MouseEventArgs ea) { this.pictureBox1_MouseDown(send, ea, titulo, pictureBox4); };
                             pictureBox4.MouseMove += delegate (object send, MouseEventArgs ea) { this.pictureBox1_MouseMove(send, ea, titulo, pictureBox4); };
-                            pictureBox4.MouseUp += delegate (object send, MouseEventArgs ea) { this.pictureBox1_MouseUp(send, ea, titulo, oelemento); };
+                            pictureBox4.MouseUp += delegate (object send, MouseEventArgs ea) { this.pictureBox1_MouseUp(send, ea, titulo); };
 
                             titulo.Controls.Add(pictureBox4);
 
@@ -453,7 +449,7 @@ namespace Gestor_de_contenido_SG
                 }
 
                 //Añadir elemento a la base de datos
-                ClaseElemento oelemento = new ClaseElemento("img", dialogoBuscarArchivo.SafeFileName, Convert.ToInt16(columna_id.Text), imagen.Width, 0, altura);
+                ClaseElemento oelemento = new ClaseElemento("img", dialogoBuscarArchivo.SafeFileName, Convert.ToInt16(columna_id.Text), imagen.Width, 0, 0, imagen.Height);
 
                 BDElementos.insertarElemento(oelemento);
             }
@@ -469,7 +465,7 @@ namespace Gestor_de_contenido_SG
             else
             {
                 //Añadir elemento a la base de datos
-                ClaseElemento oelemento = new ClaseElemento("video", url, Convert.ToInt16(columna_id.Text), 240, 0, altura);
+                ClaseElemento oelemento = new ClaseElemento("video", url, Convert.ToInt16(columna_id.Text), 240, 0, 0, 120);
 
                 BDElementos.insertarElemento(oelemento);
             }
@@ -486,12 +482,8 @@ namespace Gestor_de_contenido_SG
             {
                 Label parrafo = new Label();
 
-                //propiedades del parrafo
-                parrafo.Width = 300;
-                parrafo.AutoSize = true;
-
                 //Añadir elemento a la base de datos
-                ClaseElemento oelemento = new ClaseElemento("p", textoParrafo, Convert.ToInt16(columna_id.Text), parrafo.Width, 0, altura);
+                ClaseElemento oelemento = new ClaseElemento("p", textoParrafo, Convert.ToInt16(columna_id.Text), 300, 0, 0, 300);
 
                 BDElementos.insertarElemento(oelemento);
             }
@@ -506,8 +498,13 @@ namespace Gestor_de_contenido_SG
             }
             else
             {
+                //propiedades del titulo
+                Label titulo = new Label();
+                titulo.Text = textoTitulo;
+                titulo.AutoSize = true;
+
                 //Añadir elemento a la base de datos
-                ClaseElemento oelemento = new ClaseElemento("title", textoTitulo, Convert.ToInt16(columna_id.Text), 20, 0, altura);
+                ClaseElemento oelemento = new ClaseElemento("title", textoTitulo, Convert.ToInt16(columna_id.Text), titulo.Width, 0, 0, 26);
 
                 BDElementos.insertarElemento(oelemento);
             }

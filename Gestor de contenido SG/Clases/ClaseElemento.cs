@@ -8,10 +8,10 @@ namespace Gestor_de_contenido_SG.Clases
 {
     class ClaseElemento
     {
-        public int id, ancho, espacio_izquierda, espacio_arriba, columna_id;
+        public int id, ancho, espacio_izquierda, espacio_arriba, columna_id, alto;
         public string tipo, contenido;
 
-        public ClaseElemento(int id, string tipo, string contenido, int columna_id, int ancho, int espacio_izquierda, int espacio_arriba)
+        public ClaseElemento(int id, string tipo, string contenido, int columna_id, int ancho, int espacio_izquierda, int espacio_arriba, int alto)
         {
             this.id = id;
             this.tipo = tipo;
@@ -20,9 +20,10 @@ namespace Gestor_de_contenido_SG.Clases
             this.espacio_izquierda = espacio_izquierda;
             this.espacio_arriba = espacio_arriba;
             this.columna_id = columna_id;
+            this.alto = alto;
         }
 
-        public ClaseElemento(string tipo, string contenido, int columna_id, int ancho, int espacio_izquierda, int espacio_arriba)
+        public ClaseElemento(string tipo, string contenido, int columna_id, int ancho, int espacio_izquierda, int espacio_arriba, int alto)
         {
             this.tipo = tipo;
             this.contenido = contenido;
@@ -30,6 +31,7 @@ namespace Gestor_de_contenido_SG.Clases
             this.espacio_izquierda = espacio_izquierda;
             this.espacio_arriba = espacio_arriba;
             this.columna_id = columna_id;
+            this.alto = alto;
         }
 
         public ClaseElemento()
@@ -107,5 +109,14 @@ namespace Gestor_de_contenido_SG.Clases
             return this.columna_id;
         }
 
+        public void setAlto(int alto)
+        {
+            this.alto = alto;
+        }
+
+        public int getAlto()
+        {
+            return this.alto;
+        }
     }
 }

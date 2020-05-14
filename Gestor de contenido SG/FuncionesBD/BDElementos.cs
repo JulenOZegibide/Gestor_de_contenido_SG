@@ -20,7 +20,7 @@ namespace Gestor_de_contenido_SG.FuncionesBD
             BDConexion.Open();
             try
             {
-                string insertar = "INSERT INTO ELEMENTOS(TIPO,CONTENIDO,ANCHO,ESPACIO_IZQUIERDA,ESPACIO_ARRIBA,COLUMNA_ID) VALUES (@tipo, @contenido, @ancho, @espacio_izquierda, @espacio_arriba, @columnaId)";
+                string insertar = "INSERT INTO ELEMENTOS(TIPO,CONTENIDO,ANCHO,ESPACIO_IZQUIERDA,ESPACIO_ARRIBA,COLUMNA_ID,ALTO) VALUES (@tipo, @contenido, @ancho, @espacio_izquierda, @espacio_arriba, @columnaId, @alto)";
                 OleDbCommand cmd = new OleDbCommand(insertar, BDConexion);
 
                 cmd.Parameters.AddWithValue("@tipo", oelemento.tipo);
@@ -29,6 +29,7 @@ namespace Gestor_de_contenido_SG.FuncionesBD
                 cmd.Parameters.AddWithValue("@espacio_izquierda", oelemento.espacio_izquierda);
                 cmd.Parameters.AddWithValue("@espacio_arriba", oelemento.espacio_arriba);
                 cmd.Parameters.AddWithValue("@columnaId", oelemento.columna_id);
+                cmd.Parameters.AddWithValue("@alto", oelemento.alto);
 
                 cmd.ExecuteNonQuery();
                 MessageBox.Show("Registro guardado");
@@ -65,7 +66,7 @@ namespace Gestor_de_contenido_SG.FuncionesBD
                     {
                         int NumberOfColums = lector.GetValues(objeto);
 
-                        ClaseElemento oelemento = new ClaseElemento(Convert.ToInt16(objeto[0]), objeto[1].ToString(), objeto[2].ToString(), Convert.ToInt16(objeto[3]), Convert.ToInt16(objeto[4]), Convert.ToInt16(objeto[5]), Convert.ToInt16(objeto[6]));
+                        ClaseElemento oelemento = new ClaseElemento(Convert.ToInt16(objeto[0]), objeto[1].ToString(), objeto[2].ToString(), Convert.ToInt16(objeto[3]), Convert.ToInt16(objeto[4]), Convert.ToInt16(objeto[5]), Convert.ToInt16(objeto[6]), Convert.ToInt16(objeto[7]));
                         Columna.listaElementos.Add(oelemento);
                         
                         Console.WriteLine();
@@ -95,17 +96,18 @@ namespace Gestor_de_contenido_SG.FuncionesBD
             }
         }
 
-        public static void actualizarAncho(int ancho, int id)
+        public static void actualizarTamaño(int ancho, int alto, int id)
         {
             Controlador.Conectar();
             OleDbConnection BDConexion = Controlador.BDConexion;
             BDConexion.Open();
             try
             {
-                string actualizar = "UPDATE ELEMENTOS SET ANCHO = @ancho WHERE ID = @id";
+                string actualizar = "UPDATE ELEMENTOS SET ANCHO = @ancho, ALTO = @alto WHERE ID = @id";
                 OleDbCommand cmd = new OleDbCommand(actualizar, BDConexion);
 
                 cmd.Parameters.AddWithValue("@ancho", ancho);
+                cmd.Parameters.AddWithValue("@alto", alto);
                 cmd.Parameters.AddWithValue("@id", id);
 
                 cmd.ExecuteNonQuery();

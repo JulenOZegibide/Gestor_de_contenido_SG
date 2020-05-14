@@ -41,11 +41,11 @@ namespace Gestor_de_contenido_SG
             this.MinimizeBox = false;
 
             //tamaño del contenedor grande
-            contenedorGrande.Size = new Size(1384,704);
+            contenedorGrande.Size = new Size(1364,708);
 
             //tamaño del contenedor pequeño
             contenedor = new Panel();
-            contenedor.Size = new Size(1260, 700);
+            contenedor.Size = new Size(1260, 708);
             contenedor.MaximumSize = new Size(1260, 3000);
             contenedor.Left = 53;
             contenedor.AutoSize = true;
@@ -85,19 +85,19 @@ namespace Gestor_de_contenido_SG
             controlMovible(control, Direction.Any);
         }
 
-        //segunda parte de la funcion para que un elemento se pueda mover
+        //segunda parte de la funcion para que una columna se pueda mover
         public void controlMovible(Control control, Direction direction)
         {
             controlMovible(control, control, direction);
         }
 
-        //tercera parte de la funcion para que un elemento se pueda mover
+        //tercera parte de la funcion para que una columna se pueda mover
         public void controlMovible(Control control, Control container, Direction direction)
         {
             bool Dragging = false;
             Point DragStart = Point.Empty;
 
-            //funcion para cuando clickas sobre el elemento para modificar la posicion del elemento
+            //funcion para cuando clickas sobre la columna para modificar la posicion del elemento
             control.MouseDown += delegate (object sender, MouseEventArgs e)
             {
                 Dragging = true;
@@ -105,7 +105,7 @@ namespace Gestor_de_contenido_SG
                 control.Capture = true;
             };
 
-            //funcion para cuando se deja de clickar sobre el elemento para modificar la posicion del elemento
+            //funcion para cuando se deja de clickar sobre la columna para modificar la posicion del elemento
             control.MouseUp += delegate (object sender, MouseEventArgs e)
             {
                 Dragging = false;
@@ -114,7 +114,7 @@ namespace Gestor_de_contenido_SG
                 BDColumnas.actualizarPosicion(control.Left, control.Top, control.Controls[0].Text.ToString());
             };
 
-            //funcion que al estar clickando permite modificar la posicion del elemento
+            //funcion que al estar clickando permite modificar la posicion de la columna
             control.MouseMove += delegate (object sender, MouseEventArgs e)
             {
                 //hacer que la columna que se quiere mover se site sobre el resto
@@ -126,15 +126,11 @@ namespace Gestor_de_contenido_SG
 
                 if (Dragging)
                 {
-                    //this.AutoScroll = false;
-
                     if (direction != Direction.Vertical)
                         control.Left = Math.Min(Math.Max(0, e.X + control.Left - DragStart.X), panelcontenedor.Right - container.Width);
 
                     if (direction != Direction.Horizontal)
                         control.Top = Math.Max(0, e.Y + control.Top - DragStart.Y);
-
-                    //this.AutoScroll = true;
                 }
             };
         }
@@ -159,7 +155,18 @@ namespace Gestor_de_contenido_SG
                     panel1.BorderStyle = BorderStyle.FixedSingle;
                     panel1.Name = "columna" + contador;
                     panel1.Size = new Size(ocolumna.ancho, ocolumna.alto);
-                    panel1.Left = ocolumna.espacio_izquierda;
+
+                    if (ocolumna.ancho + ocolumna.espacio_izquierda > 1260)
+                    {
+                        int espacioNuevo = 1260 - ocolumna.ancho;
+                        panel1.Left = espacioNuevo;
+                        BDColumnas.actualizarPosicion(espacioNuevo, ocolumna.espacio_arriba, ocolumna.titulo);
+                    }
+                    else
+                    { 
+                        panel1.Left = ocolumna.espacio_izquierda;
+                    }
+                    
                     panel1.Top = ocolumna.espacio_arriba;
                     panel1.MaximumSize = new Size(1260, 570);
                     panel1.MinimumSize = new Size(200, 100);
@@ -205,10 +212,10 @@ namespace Gestor_de_contenido_SG
                                     imagen.Top = oelemento.espacio_arriba;
                                     imagen.Left = oelemento.espacio_izquierda;
                                     imagen.Name = oelemento.id.ToString();
-                                    imagen.MaximumSize = new Size(oelemento.ancho, 500);
                                     imagen.Size = new Size(imageWidth, imageHeight);
                                     imagen.SizeMode = PictureBoxSizeMode.StretchImage;
                                     imagen.Width = oelemento.ancho;
+                                    imagen.Height = oelemento.alto;
                                     imagen.Enabled = false;
 
                                     panel1.Controls.Add(imagen);
@@ -224,10 +231,8 @@ namespace Gestor_de_contenido_SG
                                     video.Name = oelemento.id.ToString();
                                     video.BorderStyle = BorderStyle.FixedSingle;
                                     video.SizeMode = PictureBoxSizeMode.CenterImage;
-                                    video.MaximumSize = new Size(panel1.Width, 500);
-                                    video.MinimumSize = new Size(240, 135);
                                     video.Width = oelemento.ancho;
-                                    video.Height = oelemento.ancho / 2;
+                                    video.Height = oelemento.alto;
                                     video.Enabled = false;
 
                                     panel1.Controls.Add(video);
@@ -241,10 +246,8 @@ namespace Gestor_de_contenido_SG
                                     parrafo.Top = oelemento.espacio_arriba;
                                     parrafo.Left = oelemento.espacio_izquierda;
                                     parrafo.Name = oelemento.id.ToString();
-                                    parrafo.MaximumSize = new Size(oelemento.ancho, 300);
-                                    parrafo.MinimumSize = new Size(10, 10);
-                                    parrafo.AutoSize = true;
                                     parrafo.Width = oelemento.ancho;
+                                    parrafo.Height = oelemento.alto;
                                     parrafo.Enabled = false;
 
                                     panel1.Controls.Add(parrafo);
@@ -258,11 +261,9 @@ namespace Gestor_de_contenido_SG
                                     titulo.Top = oelemento.espacio_arriba;
                                     titulo.Left = oelemento.espacio_izquierda;
                                     titulo.Name = oelemento.id.ToString();
-                                    titulo.AutoSize = true;
                                     titulo.Font = new Font("Arial", 16);
-                                    titulo.MaximumSize = new Size(panel1.Width, 300);
-                                    titulo.MinimumSize = new Size(10, 10);
                                     titulo.Width = oelemento.ancho;
+                                    titulo.Height = oelemento.alto;
                                     titulo.Enabled = false;
 
                                     panel1.Controls.Add(titulo);
