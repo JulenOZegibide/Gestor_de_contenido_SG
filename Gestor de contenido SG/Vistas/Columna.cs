@@ -104,9 +104,6 @@ namespace Gestor_de_contenido_SG
             //funcion que al estar clickando permite modificar la posicion del elemento
             control.MouseMove += delegate (object sender, MouseEventArgs e)
             {
-                //hacer que el elemento que se quiere mover se situe sobre el resto(da error a la hora de borrar)
-                //control.BringToFront();
-
                 //metodo para que el elemento no pueda sobrepasar el ancho del contenedor de la columna
                 container = (Control)sender;
                 Rectangle panelcontenedor = container.Parent.ClientRectangle;
@@ -210,7 +207,7 @@ namespace Gestor_de_contenido_SG
                 int anchoActual = 0;
                 int altoProporcional = 0;
                 //si es una imagen o un video se aumentara su altura proporcionalmente a su ancho
-                /*if (elemento is PictureBox)
+                if (elemento is PictureBox)
                 {
                     anchoActual = elemento.Width;
 
@@ -264,12 +261,10 @@ namespace Gestor_de_contenido_SG
 
                     }
 
-                    elemento.Height += altoProporcional;
-
                     elemento.AutoSize = false;
                 }
                 else
-                {*/
+                {
                     int anchoMax = 0;
                     int altoMax = 0;
 
@@ -288,7 +283,7 @@ namespace Gestor_de_contenido_SG
                     elemento.Height = pictureBox1.Top + e.Y;
 
                     elemento.AutoSize = false;
-                //}             
+                }             
             }
         }
 
@@ -593,7 +588,6 @@ namespace Gestor_de_contenido_SG
                 
                 for (int x = 2; x < contenedorColumna.Controls.Count; x++)
                 {                   
-                    //MessageBox.Show("nombre " + contenedorColumna.Controls[x].Name + " y es " + contenedorColumna);
                     int id = Convert.ToInt16(contenedorColumna.Controls[x].Name);
                     contenedorColumna.Controls[x].Click += delegate (object send, EventArgs ea) { borrarElemento(id, send, e); };
                 }
