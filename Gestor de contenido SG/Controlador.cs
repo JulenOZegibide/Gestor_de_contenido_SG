@@ -29,7 +29,9 @@ namespace Gestor_de_contenido_SG
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
 
-                Application.Run(menu = new Menu());
+                //Application.Run(menu = new Menu());
+                Application.Run(new Bloque("Bloque1"));
+                //Application.Run(new Pagina(21, "pagina1"));
             }
             catch (Exception e)
             {

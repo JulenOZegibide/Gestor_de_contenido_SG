@@ -45,8 +45,8 @@ namespace Gestor_de_contenido_SG
 
             //tamaño del contenedor pequeño
             contenedor = new Panel();
-            contenedor.Size = new Size(1260, 708);
-            contenedor.MaximumSize = new Size(1260, 3000);
+            contenedor.Width = 1260;
+            contenedor.MaximumSize = new Size(1260, 5000);
             contenedor.Left = 53;
             contenedor.AutoSize = true;
 
@@ -117,7 +117,7 @@ namespace Gestor_de_contenido_SG
             //funcion que al estar clickando permite modificar la posicion de la columna
             control.MouseMove += delegate (object sender, MouseEventArgs e)
             {
-                //hacer que la columna que se quiere mover se site sobre el resto
+                //hacer que la columna que se quiere mover se situe sobre el resto
                 control.BringToFront();
 
                 //metodo para que el elemento no pueda sobrepasar el ancho del contenedor de la columna
@@ -246,6 +246,7 @@ namespace Gestor_de_contenido_SG
                                     parrafo.Top = oelemento.espacio_arriba;
                                     parrafo.Left = oelemento.espacio_izquierda;
                                     parrafo.Name = oelemento.id.ToString();
+                                    parrafo.Font = new Font("Arial", 9);
                                     parrafo.Width = oelemento.ancho;
                                     parrafo.Height = oelemento.alto;
                                     parrafo.Enabled = false;
@@ -277,9 +278,12 @@ namespace Gestor_de_contenido_SG
                         Columna.listaElementos = new ArrayList();
                     }
                     panel1.MinimumSize = new Size(200, panel1.Height);
+                    panel1.BringToFront();
 
                     //añade un evento cuando se hace click sobre una columna
                     panel1.DoubleClick += delegate (object send, EventArgs ea) { Controlador.mostrarColumna(send, ea, ocolumna.titulo, panel1.Width, panel1.Height); Hide(); };
+                    panel1.MouseEnter += delegate (object send, EventArgs ea) { panel1.Cursor = Cursors.SizeAll; };
+                    panel1.MouseLeave += delegate (object send, EventArgs ea) { panel1.Cursor = Cursors.Default; };
                     controlMovible(panel1);
                 }
                 listaColumnas.Clear();
@@ -308,7 +312,7 @@ namespace Gestor_de_contenido_SG
             //Propiedades que tendra la columna al ser creada
             panel1.BackColor = Color.Transparent;
             panel1.BorderStyle = BorderStyle.FixedSingle;
-            panel1.Top = 30;
+            panel1.Top = contenedor.Height;
             panel1.Name = "columna" + contador;
             panel1.Size = new Size(200, 160);
             panel1.AutoSize = true;
@@ -316,7 +320,7 @@ namespace Gestor_de_contenido_SG
             panel1.MinimumSize = new Size(200, 160);
 
             //crear objeto de la clase columna 
-            ClaseColumna ocolumna = new ClaseColumna(nombre.Text, panel1.Width, Convert.ToInt16(bloque_id.Text), 160, 0, 0);
+            ClaseColumna ocolumna = new ClaseColumna(nombre.Text, panel1.Width, Convert.ToInt16(bloque_id.Text), 160, 0, panel1.Top);
 
             this.Controls.Add(panel1);
 

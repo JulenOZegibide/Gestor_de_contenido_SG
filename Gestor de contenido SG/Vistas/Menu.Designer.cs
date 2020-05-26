@@ -62,7 +62,7 @@
             this.actualizar_pagina.AutoSize = false;
             this.actualizar_pagina.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold);
             this.actualizar_pagina.Name = "actualizar_pagina";
-            this.actualizar_pagina.Size = new System.Drawing.Size(140, 38);
+            this.actualizar_pagina.Size = new System.Drawing.Size(128, 38);
             this.actualizar_pagina.Text = "Actualizar Pagina";
             this.actualizar_pagina.Click += new System.EventHandler(this.actualizarPaginaToolStripMenuItem_Click);
             // 

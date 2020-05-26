@@ -61,8 +61,7 @@ namespace Gestor_de_contenido_SG
                     pagina.Text = opagina.titulo;
                     pagina.BackColor = Color.White;
                     pagina.Dock = DockStyle.Left;
-                    pagina.Font = new Font("Segoe UI", 9);
-                    pagina.Width = 140;
+                    pagina.Font = new Font("Segoe UI", 10);
 
                     //funcion que se llama al clickar encima de una pagina de dicho menu
                     pagina.Click += delegate (object send, EventArgs ea) { Controlador.mostrarPagina(opagina.id, opagina); this.Hide(); };

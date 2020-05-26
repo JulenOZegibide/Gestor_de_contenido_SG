@@ -46,16 +46,17 @@ namespace Gestor_de_contenido_SG
             nombre_columna.Text = titulo;
 
             //asigna el ancho y alto del contenedor
-            contenedorColumna.Width = anchoColumna;
-            contenedorColumna.Height = altoColumna;
+            contenedorColumna.Width = anchoColumna + 10;
+            contenedorColumna.Height = altoColumna + 10;
             contenedorColumna.Left = 53;
 
             //Para evitar que el usuario de la aplicacion cambie el tamaño de la pestaña
             this.FormBorderStyle = FormBorderStyle.None;
 
             //asignar tamaño maximo para el contenedor
-            contenedorColumna.MaximumSize = new Size(1260, 570);
+            contenedorColumna.MaximumSize = new Size(1270, 580);
             contenedorColumna.MinimumSize = new Size(200, 100);
+
         }
 
         public enum Direction
@@ -103,6 +104,9 @@ namespace Gestor_de_contenido_SG
             //funcion que al estar clickando permite modificar la posicion del elemento
             control.MouseMove += delegate (object sender, MouseEventArgs e)
             {
+                //hacer que el elemento que se quiere mover se situe sobre el resto(da error a la hora de borrar)
+                //control.BringToFront();
+
                 //metodo para que el elemento no pueda sobrepasar el ancho del contenedor de la columna
                 container = (Control)sender;
                 Rectangle panelcontenedor = container.Parent.ClientRectangle;
@@ -110,10 +114,10 @@ namespace Gestor_de_contenido_SG
                 if (Dragging)
                 {
                     if (direction != Direction.Vertical)
-                        container.Left = Math.Min(Math.Max(0, e.X + container.Left - DragStart.X), panelcontenedor.Right - container.Width);
+                        container.Left = Math.Min(Math.Max(10, e.X + container.Left - DragStart.X), panelcontenedor.Right - container.Width) - 10;
 
                     if (direction != Direction.Horizontal)
-                        container.Top = Math.Min(Math.Max(0, e.Y + container.Top - DragStart.Y), panelcontenedor.Bottom - container.Height);
+                        container.Top = Math.Min(Math.Max(10, e.Y + container.Top - DragStart.Y), panelcontenedor.Bottom - container.Height) - 10;
                 }
             };
         }
@@ -133,12 +137,14 @@ namespace Gestor_de_contenido_SG
             bordeInferior.MouseUp += delegate (object sender, MouseEventArgs e)
             {
                 aumentarAlto = false;
-                BDColumnas.actualizarAlto(columna.Height, Convert.ToInt16(columna_id.Text));
+                BDColumnas.actualizarAlto((columna.Height - 10), Convert.ToInt16(columna_id.Text));
             };
 
             //funcion que al estar clickando permite modificar la altura de la columna
             bordeInferior.MouseMove += delegate (object sender, MouseEventArgs e)
             {
+                bordeInferior.BringToFront();
+
                 if (aumentarAlto)
                 {
                     columna.Height = bordeInferior.Top + e.Y;
@@ -156,7 +162,6 @@ namespace Gestor_de_contenido_SG
             bordeDerecho.MouseDown += delegate (object sender, MouseEventArgs e)
             {
                 aumentarAncho = true;
-                //columna.AutoSize = true;
             };
 
             //funcion para cuando se deja de clickar sobre el el borde derecho para modificar el ancho de la columna
@@ -164,12 +169,14 @@ namespace Gestor_de_contenido_SG
             {
                 aumentarAncho = false;
 
-                BDColumnas.actualizarAncho(columna.Width, Convert.ToInt16(columna_id.Text));
+                BDColumnas.actualizarAncho((columna.Width - 10), Convert.ToInt16(columna_id.Text));
             };
 
             //funcion que al estar clickando permite modificar el ancho de la columna
             bordeDerecho.MouseMove += delegate (object sender, MouseEventArgs e)
             {
+                bordeDerecho.BringToFront();
+
                 if (aumentarAncho)
                 {
                     columna.Width = bordeDerecho.Left + e.X;
@@ -198,32 +205,90 @@ namespace Gestor_de_contenido_SG
         //funcion que al estar clickando permite modificar el tamaño del elemento
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e, Control elemento, PictureBox pictureBox1)
         {
-
             if (allowResize)
             {
-                int anchoMax = 0;
-                int altoMax = 0;
-
-
-
-                if (elemento.Top + elemento.Height >= contenedorColumna.Height - 8 || elemento.Left + elemento.Width >= contenedorColumna.Width - 8)
+                int anchoActual = 0;
+                int altoProporcional = 0;
+                //si es una imagen o un video se aumentara su altura proporcionalmente a su ancho
+                /*if (elemento is PictureBox)
                 {
-                    if (elemento.Top + elemento.Height >= contenedorColumna.Height - 8)
-                    altoMax = elemento.Height;
+                    anchoActual = elemento.Width;
 
-                    if (elemento.Left + elemento.Width >= contenedorColumna.Width - 8)
-                        anchoMax = elemento.Width;
+                    int anchoMax = 0;
+                    int altoMax = 0;
 
-                    elemento.MaximumSize = new Size(anchoMax, altoMax);
+                    if (elemento.Top + elemento.Height >= contenedorColumna.Height - 10 || elemento.Left + elemento.Width >= contenedorColumna.Width - 10)
+                    {
+                        if (elemento.Top + elemento.Height >= contenedorColumna.Height - 10)
+                        {
+                            altoMax = elemento.Height;
+                            anchoMax = elemento.Width;
+                        }
+                        if (elemento.Left + elemento.Width >= contenedorColumna.Width - 10)
+                        {
+                            altoMax = elemento.Height;
+                            anchoMax = elemento.Width;
+                        }
+
+                        elemento.MaximumSize = new Size(anchoMax, altoMax);
+                    }
+
+                    if (elemento.Height == 10 ||elemento.Width == 10)
+                    {
+                        if (elemento.Height == 10)
+                        {
+                            altoMax = elemento.Height;
+                            anchoMax = elemento.Width;
+                        }
+                        if (elemento.Width == 10)
+                        {
+                            altoMax = elemento.Height;
+                            anchoMax = elemento.Width;
+                        }
+
+                        elemento.MinimumSize = new Size(anchoMax, altoMax);
+                    }
+
+                    elemento.Width = pictureBox1.Left + e.X;
+
+                    if(anchoActual < elemento.Width)
+                    {
+                        altoProporcional = elemento.Width - anchoActual;
+                        elemento.Height += altoProporcional;
+
+                    }
+                    else
+                    {
+                        altoProporcional = anchoActual - elemento.Width;
+                        elemento.Height -= altoProporcional;
+
+                    }
+
+                    elemento.Height += altoProporcional;
+
+                    elemento.AutoSize = false;
                 }
+                else
+                {*/
+                    int anchoMax = 0;
+                    int altoMax = 0;
 
-                elemento.Width = pictureBox1.Left + e.X;
-                elemento.Height = pictureBox1.Top + e.Y;
+                    if (elemento.Top + elemento.Height >= contenedorColumna.Height - 10 || elemento.Left + elemento.Width >= contenedorColumna.Width - 10)
+                    {
+                        if (elemento.Top + elemento.Height >= contenedorColumna.Height - 10)
+                            altoMax = elemento.Height;
 
+                        if (elemento.Left + elemento.Width >= contenedorColumna.Width - 10)
+                            anchoMax = elemento.Width;
 
+                        elemento.MaximumSize = new Size(anchoMax, altoMax);
+                    }
 
-                elemento.AutoSize = false;
+                    elemento.Width = pictureBox1.Left + e.X;
+                    elemento.Height = pictureBox1.Top + e.Y;
 
+                    elemento.AutoSize = false;
+                //}             
             }
         }
 
@@ -237,21 +302,21 @@ namespace Gestor_de_contenido_SG
             //imagenes que permiten cambiar el ancho y el alto del contenedor de la columna
             bordeInferior = new PictureBox();
             bordeInferior.BackColor = Color.FromArgb(185, 209, 234);
-            bordeInferior.MinimumSize = new Size(1260, 10);
+            bordeInferior.MinimumSize = new Size(1270, 10);
             bordeInferior.AutoSize = false;
             bordeInferior.Height = 10;
             bordeInferior.Anchor = ((AnchorStyles)((AnchorStyles.Left | AnchorStyles.Bottom)));
             bordeInferior.Cursor = Cursors.SizeNS;
-            bordeInferior.Top = contenedorColumna.Height - 7;
+            bordeInferior.Top = contenedorColumna.Height - 10;
 
             bordeDerecho = new PictureBox();
             bordeDerecho.BackColor = Color.FromArgb(185, 209, 234);
             bordeDerecho.Width = 10;
-            bordeDerecho.MinimumSize = new Size(10, 570);
+            bordeDerecho.MinimumSize = new Size(10, 580);
             bordeDerecho.AutoSize = false;
             bordeDerecho.Anchor = ((AnchorStyles)((AnchorStyles.Top | AnchorStyles.Right)));
             bordeDerecho.Cursor = Cursors.SizeWE;
-            bordeDerecho.Left = contenedorColumna.Width - 7;
+            bordeDerecho.Left = contenedorColumna.Width - 10;
 
             contenedorColumna.Controls.Add(bordeInferior);
             contenedorColumna.Controls.Add(bordeDerecho);
@@ -319,7 +384,8 @@ namespace Gestor_de_contenido_SG
                             video.Name = oelemento.id.ToString();
                             video.BorderStyle = BorderStyle.FixedSingle;
                             video.SizeMode = PictureBoxSizeMode.CenterImage;
-                            video.MinimumSize = new Size(240, 135);
+                            //video.MinimumSize = new Size(240, 135);
+                            video.MinimumSize = new Size(10, 10);
                             video.Width = oelemento.ancho;
                             video.Height = oelemento.alto;
 
@@ -351,6 +417,7 @@ namespace Gestor_de_contenido_SG
                             parrafo.Top = oelemento.espacio_arriba;
                             parrafo.Left = oelemento.espacio_izquierda;
                             parrafo.Name = oelemento.id.ToString();
+                            parrafo.Font = new Font("Arial", 9);
                             parrafo.BorderStyle = BorderStyle.FixedSingle;
                             parrafo.MaximumSize = new Size(1260, 570);
                             parrafo.MinimumSize = new Size(10, 10);
@@ -523,9 +590,10 @@ namespace Gestor_de_contenido_SG
             {
                 posibleBorrar = false;
                 this.Cursor = Cursors.Hand;
-
+                
                 for (int x = 2; x < contenedorColumna.Controls.Count; x++)
-                {
+                {                   
+                    //MessageBox.Show("nombre " + contenedorColumna.Controls[x].Name + " y es " + contenedorColumna);
                     int id = Convert.ToInt16(contenedorColumna.Controls[x].Name);
                     contenedorColumna.Controls[x].Click += delegate (object send, EventArgs ea) { borrarElemento(id, send, e); };
                 }
@@ -534,6 +602,10 @@ namespace Gestor_de_contenido_SG
             {
                 posibleBorrar = true;
                 this.Cursor = Cursors.Default;
+                for (int x = 0; x < contenedorColumna.Controls.Count; x++)
+                {
+                    borrarEventoClick(contenedorColumna.Controls[x]);
+                }
             }
 
         }
